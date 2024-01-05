@@ -26,7 +26,7 @@ class Sistema(tk.Tk):
         self.state('zoomed')
         self.config(background="#eff5f6")
 
-        style = Style("darkly")
+        style = Style("cosmo")
         
 
        
@@ -115,13 +115,13 @@ class Sistema(tk.Tk):
         
 
         # Cadastro de Produtos
-        image_path2 = os.path.join(script_dir, '..','images', 'produto.png')
-        self.cadastro_produto_image = Image.open(image_path2)
-        photo = ImageTk.PhotoImage(self.cadastro_produto_image, height=10, width=10)
+        # image_path2 = os.path.join(script_dir, '..','images', 'produto.png')
+        # self.cadastro_produto_image = Image.open(image_path2)
+        # photo = ImageTk.PhotoImage(self.cadastro_produto_image, height=10, width=10)
 
-        self.cadastro_label = tk.Label(self.sidebar, image=photo, bg="#ffffff")
-        self.cadastro_label.image = photo
-        self.cadastro_label.place(x=35, y=120)
+        # self.cadastro_label = tk.Label(self.sidebar, image=photo, bg="#ffffff")
+        # self.cadastro_label.image = photo
+        # self.cadastro_label.place(x=35, y=120)
         
         self.btn_cadastro_produto = ttk.Button(self.sidebar, 
             text='Cadastro Produtos', command=lambda: self.mudar_tela(CadastroProduto))
@@ -129,13 +129,13 @@ class Sistema(tk.Tk):
 
 
         # Cadastro de Empresas
-        image_empresa = os.path.join(script_dir, '..', 'images', 'empresa.png')
-        self.cadastro_empresa_image = Image.open(image_empresa)
-        photo = ImageTk.PhotoImage(self.cadastro_empresa_image, height=10, width=10)
+        # image_empresa = os.path.join(script_dir, '..', 'images', 'empresa.png')
+        # self.cadastro_empresa_image = Image.open(image_empresa)
+        # photo = ImageTk.PhotoImage(self.cadastro_empresa_image, height=10, width=10)
 
-        self.empresa_label = tk.Label(self.sidebar, image=photo, bg="#ffffff")
-        self.empresa_label.image = photo
-        self.empresa_label.place(x=35, y=160)
+        # self.empresa_label = tk.Label(self.sidebar, image=photo, bg="#ffffff")
+        # self.empresa_label.image = photo
+        # self.empresa_label.place(x=35, y=160)
 
         
         self.btn_cadastro_empresa = ttk.Button(self.sidebar, 

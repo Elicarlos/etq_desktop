@@ -1,10 +1,29 @@
-from models import Empresa, Tipo, ItemNutricional
+from models import Empresa, Tipo, ItemNutricional, db
+
 
 class TkinterController:
     @staticmethod
-    def criar_empresa(cnpj, razao_social, fantasia, numero_sif, registro_adapi):
-        return Empresa.create(cnpj=cnpj, razao_social=razao_social, fantasia=fantasia,
-                              numero_sif=numero_sif, registro_adapi=registro_adapi)
+    @classmethod
+    def criar_empresa(cls, cnpj, razao_social, fantasia, numero_sif, registro_adapi):
+        with db.atomic():
+            Empresa.create(
+                cnpj=cnpj,
+                razao_social=razao_social,
+                fantasia=fantasia,
+                numero_sif=numero_sif,
+                registro_adapi=registro_adapi
+            )
+
+    @classmethod
+    def atualizar_empresa(cls, empresa_id, cnpj, razao_social, fantasia, numero_sif, registro_adapi):
+        with db.atomic():
+            empresa = Empresa.get_by_id(empresa_id)
+            empresa.cnpj = cnpj
+            empresa.razao_social = razao_social
+            empresa.fantasia = fantasia
+            empresa.numero_sif = numero_sif
+            empresa.registro_adapi = registro_adapi
+            empresa.save()
 
     @staticmethod
     def criar_tipo(tipo):

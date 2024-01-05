@@ -9,17 +9,13 @@ class CadastroEmpresa(tk.Frame):
         self.master = master
         self.criar_widgets()
 
-        # Configurar o formulário com os dados da empresa existente, se houver
-        self.configurar_com_dados_empresa()
-
     def criar_widgets(self):
         # Criação do formulário baseado na classe Empresa
         empresa_info_frame = tk.LabelFrame(self, text='Cadastro de Empresa', padx=50, pady=50)
         empresa_info_frame.grid(row=0, column=0, padx=20, pady=5)
 
-        # Crie um objeto Style da ttkbootstrap
-        style = Style(theme="flatly")  # Substitua "flatly" pelo tema desejado
-
+   
+      
         # Labels
         cnpj_label = ttk.Label(empresa_info_frame, text='CNPJ', style="TLabel")
         cnpj_label.grid(row=0, column=0, sticky=tk.E, pady=5)
@@ -55,6 +51,9 @@ class CadastroEmpresa(tk.Frame):
         # Botão
         btn_salvar = ttk.Button(empresa_info_frame, text='Salvar', style="TButton", command=self.salvar_empresa)
         btn_salvar.grid(row=5, column=1, pady=10)
+
+        # Configurar o formulário com os dados da empresa existente, se houver
+        self.configurar_com_dados_empresa()
 
     def configurar_com_dados_empresa(self):
         # Verificar se há uma empresa existente
@@ -92,7 +91,7 @@ class CadastroEmpresa(tk.Frame):
                 messagebox.showinfo("Sucesso", "Empresa cadastrada com sucesso!")
 
             # Limpar os campos após o sucesso
-            self.limpar_campos()
+            # self.limpar_campos()
 
         except Exception as e:
             messagebox.showerror("Erro", f"Erro ao salvar empresa: {str(e)}")

@@ -8,7 +8,7 @@ class CadastroProduto(tk.Frame):
         self.criar_widgets()
 
     def criar_widgets(self):
-        style = Style(theme="lumen")  # Escolha o tema desejado
+        # style = Style(theme="lumen")  # Escolha o tema desejado
 
         notebook = ttk.Notebook(self)
         notebook.grid(row=0, column=0, pady=10, padx=10, sticky="nsew")
@@ -24,6 +24,9 @@ class CadastroProduto(tk.Frame):
 
         tipo_combobox = ttk.Combobox(produto_info_frame, values=['Carne 1', 'Carne 2'])
         tipo_combobox.grid(row=0, column=1, padx=10, pady=5, sticky="ew")
+        adicona_tipo = ttk.Button(produto_info_frame, text="+ Adicionar", )
+        adicona_tipo.grid(row=0, column=2, padx=10, pady=5, sticky="ew")
+
         corte_entry = ttk.Entry(produto_info_frame)
         corte_entry.grid(row=1, column=1, padx=10, pady=5, sticky="ew")
         sexo_combobox = ttk.Combobox(produto_info_frame, values=["F", "M"])
@@ -119,6 +122,35 @@ class CadastroProduto(tk.Frame):
         sodio_cem_gramas_entry.grid(row=10, column=1, padx=10, pady=5)  
         sodio_diario_entry = ttk.Entry(nutricional_frame)
         sodio_diario_entry.grid(row=10, column=2, padx=10, pady=5)
+
+        salvar_produto = ttk.Button(nutricional_frame, text="Salvar")
+        salvar_produto.grid(row=11, column=2, padx=10, pady=5, sticky="ew")
+
+    def abrir_popup(self):
+        # Criar a janela popup
+        popup = tk.Toplevel(self)
+        popup.title("Adicionar Tipo de Carne")
+
+        # Adicionar widgets ao popup
+        label = ttk.Label(popup, text="Novo Tipo de Carne:")
+        label.pack(padx=10, pady=5)
+
+        entry = ttk.Entry(popup)
+        entry.pack(padx=10, pady=5)
+
+        salvar_button = ttk.Button(popup, text="Salvar", command=popup.destroy)
+        salvar_button.pack(padx=10, pady=10)
+
+        # Configurar para que a janela principal fique inativa enquanto o popup estiver aberto
+        popup.grab_set()
+
+        # Centralizar o popup na tela
+        popup.update_idletasks()
+        w = popup.winfo_width()
+        h = popup.winfo_height()
+        x = (popup.winfo_screenwidth() - w) // 2
+        y = (popup.winfo_screenheight() - h) // 2
+        popup.geometry('{}x{}+{}+{}'.format(w, h, x, y))
 
         
     def abrir_proxima_tela(self):
