@@ -26,8 +26,11 @@ class TkinterController:
             empresa.save()
 
     @staticmethod
-    def criar_tipo(tipo):
-        return Tipo.create(tipo=tipo)
+    def criar_tipo(cls, tipo):
+        with db.atomic():
+            Tipo.create(
+                tipo=tipo
+            )
 
     @staticmethod
     def criar_item_nutricional(tipo, corte, valores_entradas):
