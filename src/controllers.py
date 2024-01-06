@@ -25,12 +25,16 @@ class TkinterController:
             empresa.registro_adapi = registro_adapi
             empresa.save()
 
-    @staticmethod
+    @classmethod
     def criar_tipo(cls, tipo):
-        with db.atomic():
-            Tipo.create(
-                tipo=tipo
-            )
+        try:
+            with db.atomic():
+                # Certifique-se de substituir 'Tipo' pelo nome da sua classe modelo para tipos
+                Tipo.create(tipo=tipo)
+            print(f'Tipo "{tipo}" criado com sucesso!')
+        except Exception as e:
+            print(f'Erro ao criar tipo: {str(e)}')
+
 
     @staticmethod
     def criar_item_nutricional(tipo, corte, valores_entradas):
@@ -68,7 +72,8 @@ class TkinterController:
 
     @staticmethod
     def obter_tipos():
-        return Tipo.select()
+        tipos = Tipo.select().dicts()
+        return [tipo['tipo'] for tipo in tipos]
 
     @staticmethod
     def obter_itens_nutricionais():

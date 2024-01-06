@@ -6,7 +6,10 @@ class CadastroProduto(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
+        self.controller = TkinterController()
+        self.tipo_combobox = None  # Adicione esta linha
         self.criar_widgets()
+        
 
     def criar_widgets(self):
         # style = Style(theme="lumen")  # Escolha o tema desejado
@@ -23,12 +26,18 @@ class CadastroProduto(tk.Frame):
             label = ttk.Label(produto_info_frame, text=label_text)
             label.grid(row=i, column=0, padx=10, pady=5, sticky="w")
         
-        tipos_corte = TkinterController.obter_tipos()
-        tipos_carne = [str(tipo) for tipo in tipos_carne if isinstance(tipo, (str, int))]
-        tipo_combobox = ttk.Combobox(produto_info_frame, values=tipos_corte)
-        tipo_combobox.grid(row=0, column=1, padx=10, pady=5, sticky="ew")
+        tipos_corte = self.controller.obter_tipos()
+
+        # Sempre cria o Combobox, mesmo que vazio
+        self.tipo_combobox = ttk.Combobox(produto_info_frame, values=tipos_corte)
+        self.tipo_combobox.grid(row=0, column=1, padx=10, pady=5, sticky="ew")
+
         adicona_tipo = ttk.Button(produto_info_frame, text="+ Adicionar", command=self.abrir_popup)
         adicona_tipo.grid(row=0, column=2, padx=10, pady=5, sticky="ew")
+
+        # Adiciona o evento para lidar com a seleção no Combobox
+        self.tipo_combobox.bind("<<ComboboxSelected>>", self.selecionar_tipo)
+
 
         corte_entry = ttk.Entry(produto_info_frame)
         corte_entry.grid(row=1, column=1, padx=10, pady=5, sticky="ew")
@@ -51,6 +60,7 @@ class CadastroProduto(tk.Frame):
         nutricional_frame = ttk.Frame(notebook)
         notebook.add(nutricional_frame, text="Informação Nutricional")
 
+        # Titulos
         cem_gramas_label = ttk.Label(nutricional_frame, text='100g')
         cem_gramas_label.grid(row=0, column=1, padx=10, pady=5)
         valor_diario_label = ttk.Label(nutricional_frame, text="% VD*")
@@ -59,12 +69,14 @@ class CadastroProduto(tk.Frame):
         valor_energetico_label = ttk.Label(nutricional_frame, text='Valor energético (kcal)')
         valor_energetico_label.grid(row=1, column=0, padx=10, pady=5)
         valor_energetico_cem_gramas_entry = ttk.Entry(nutricional_frame)
-        valor_energetico_cem_gramas_entry.grid(row=1, column=1, padx=10, pady=5)  
+        valor_energetico_cem_gramas_entry.grid(row=1, column=1, padx=10, pady=5)
+
         valor_energetico_diario_entry = ttk.Entry(nutricional_frame)
         valor_energetico_diario_entry.grid(row=1, column=2, padx=10, pady=5)
 
         carboidratos_totais_label = ttk.Label(nutricional_frame, text='Carboidratos Totais (g)')
         carboidratos_totais_label.grid(row=2, column=0, padx=10, pady=5)
+
         carboidratos_totais_cem_gramas_entry = ttk.Entry(nutricional_frame)
         carboidratos_totais_cem_gramas_entry.grid(row=2, column=1, padx=10, pady=5)  
         carboidratos_totais_diario_entry = ttk.Entry(nutricional_frame)
@@ -72,6 +84,7 @@ class CadastroProduto(tk.Frame):
 
         acucares_totais_label = ttk.Label(nutricional_frame, text='Açucares Totais (g)')
         acucares_totais_label.grid(row=3, column=0, padx=10, pady=5)
+
         acucares_totais_cem_gramas_entry = ttk.Entry(nutricional_frame)
         acucares_totais_cem_gramas_entry.grid(row=3, column=1, padx=10, pady=5)  
         acucares_totais_diario_entry = ttk.Entry(nutricional_frame)
@@ -79,6 +92,7 @@ class CadastroProduto(tk.Frame):
 
         acucares_adicionados_label = ttk.Label(nutricional_frame, text='Açucares Adicionados (g)')
         acucares_adicionados_label.grid(row=4, column=0, padx=10, pady=5)
+
         acucares_adicionados_cem_gramas_entry = ttk.Entry(nutricional_frame)
         acucares_adicionados_cem_gramas_entry.grid(row=4, column=1, padx=10, pady=5)  
         acucares_adicionados_diario_entry = ttk.Entry(nutricional_frame)
@@ -86,6 +100,7 @@ class CadastroProduto(tk.Frame):
 
         proteinas_label = ttk.Label(nutricional_frame, text='Proteínas (g)')
         proteinas_label.grid(row=5, column=0, padx=10, pady=5)
+
         proteinas_cem_gramas_entry = ttk.Entry(nutricional_frame)
         proteinas_cem_gramas_entry.grid(row=5, column=1, padx=10, pady=5)  
         proteinas_diario_entry = ttk.Entry(nutricional_frame)          
@@ -93,6 +108,7 @@ class CadastroProduto(tk.Frame):
 
         gorduras_totais_label = ttk.Label(nutricional_frame, text='Gorduras totais (g)')
         gorduras_totais_label.grid(row=6, column=0, padx=10, pady=5)
+
         gorduras_totais_cem_gramas_entry = ttk.Entry(nutricional_frame)
         gorduras_totais_cem_gramas_entry.grid(row=6, column=1, padx=10, pady=5)  
         gorduras_totais_diario_entry = ttk.Entry(nutricional_frame)
@@ -131,21 +147,18 @@ class CadastroProduto(tk.Frame):
 
 
     def abrir_popup(self):
-    # Criar a janela popup
         popup = tk.Toplevel(self.master)
         popup.title("Adicionar Tipo de Carne")
 
-        # Adicionar widgets ao popup
         label = ttk.Label(popup, text="Novo Tipo de Carne:")
         label.pack(padx=10, pady=5)
 
         entry = ttk.Entry(popup)
         entry.pack(padx=10, pady=5)
 
-        salvar_button = ttk.Button(popup, text="Salvar", command=popup.destroy)
+        salvar_button = ttk.Button(popup, text="Salvar", command=lambda: self.salvar_tipo(entry.get(), popup))
         salvar_button.pack(padx=10, pady=10)
 
-        # Centralizar o popup na tela
         largura_popup = 300
         altura_popup = 150
         largura_tela = self.master.winfo_screenwidth()
@@ -155,18 +168,162 @@ class CadastroProduto(tk.Frame):
         y = (altura_tela - altura_popup) // 2
 
         popup.geometry(f"{largura_popup}x{altura_popup}+{x}+{y}")
-
-        # Configurar para que a janela principal fique inativa enquanto o popup estiver aberto
         popup.grab_set()
 
+    def selecionar_tipo(self, event):
+        tipo_selecionado = event.widget.get()
+
     def salvar_tipo(self, novo_tipo, popup):
+        print("Funcao salvar tipo")
         if novo_tipo:
-            CadastroProduto.tipos_carne.append(novo_tipo)
-            self.tipo_combobox['values'] = CadastroProduto.tipos_carne  # Atualiza os valores do Combobox
+            print(novo_tipo)
+            self.controller.criar_tipo(novo_tipo)
+            CadastroProduto.tipos_carne = self.controller.obter_tipos()
+            self.tipo_combobox['values'] = CadastroProduto.tipos_carne
+            self.tipo_combobox.set(novo_tipo)
+
         popup.destroy()
 
+    def salvar_produto(self):
+        # Coletar dados do formulário
+        tipo = self.tipo_combobox.get()
+        corte = corte_entry.get()
+        sexo = sexo_combobox.get()
+        codigo_barras = codigo_barras_entry.get()
+        porcao_embalagem = porcao_embalagem_entry.get()
+        porcao = porcao_entry.get()
+        campo_adicional = campo_adicional_entry.get("1.0", tk.END).strip()
 
+        # Coletar dados do formulário de informação nutricional
+        valor_energetico_cem_gramas = valor_energetico_cem_gramas_entry.get()
+        valor_energetico_diario = valor_energetico_diario_entry.get()
+
+        valor_energetico_diario = valor_energetico_diario_entry.get()
+
+        carboidratos_totais_cem_gramas_entry = carboidratos_totais_cem_gramas_entry.get()
+       
+        carboidratos_totais_diario_entry = carboidratos_totais_diario_entry.get()
+       
+        acucares_totais_cem_gramas_entry = acucares_totais_cem_gramas_entry.get()
+       
+        acucares_totais_diario_entry = acucares_totais_diario_entry.get()
+
+        acucares_adicionados_cem_gramas_entry = acucares_adicionados_cem_gramas_entry.get()
+       
+        acucares_adicionados_diario_entry = acucares_adicionados_diario_entry.get()
+       
+        proteinas_cem_gramas_entry = proteinas_cem_gramas_entry.get()
+    
+        proteinas_diario_entry = proteinas_diario_entry.get()
+
+        gorduras_totais_cem_gramas_entry = gorduras_totais_cem_gramas_entry.get()
+       
+        gorduras_totais_diario_entry = gorduras_totais_diario_entry.get()
+
+
+        gorduras_saturadas_cem_gramas_entry = gorduras_saturadas_cem_gramas_entry.get()
+        
+        gorduras_saturadas_diario_entry = gorduras_saturadas_diario_entry.get()
+
+       
+        gorduras_trans_cem_gramas_entry = gorduras_trans_cem_gramas_entry.get()
+       
+        gorduras_trans_diario_entry = gorduras_trans_diario_entry.get()
+
+        
+        fibra_alimentar_cem_gramas_entry = fibra_alimentar_cem_gramas_entry.get()
+         
+        fibra_alimentar_diario_entry = fibra_alimentar_diario_entry.get()
+
+        sodio_cem_gramas_entry = sodio_cem_gramas_entry.get()
+        
+        sodio_diario_entry = sodio_diario_entry.get()
+     
+        
+        
+       
+                
+        
+
+        
+
+        # Coletar os outros dados da informação nutricional de maneira semelhante
+
+        # Criar um dicionário com os dados do produto
+        dados_produto = {
+            "tipo": tipo,
+            "corte": corte,
+            "sexo": sexo,
+            "digo_barras": codigo_barras,
+            "porcao_embalagem": porcao_embalagem,
+            "porcao": porcao,
+            "campo_adicional": campo_adicional,
+            "valor_energetico_cem_gramas": valor_energetico_cem_gramas,
+            "valor_energetico_diario": valor_energetico_diario,
+            # Adicione os outros campos da informação nutricional aqui
+
+            "valor_energetico_cem_gramas": valor_energetico_cem_gramas,
+            "valor_energetico_diario": valor_energetico_diario,
+
+            "valor_energetico_diario": valor_energetico_diario,
+
+            "carboidratos_totais_cem_gramas_entry": carboidratos_totais_cem_gramas,
+        
+            "carboidratos_totais_diario_entry": carboidratos_totais_diario,
+        
+            "acucares_totais_cem_gramas_entry": acucares_totais_cem_gramas,
+        
+            "acucares_totais_diario_entry": acucares_totais_diario,
+
+            "acucares_adicionados_cem_gramas_entry" : acucares_adicionados_cem_gramas,
+        
+            "acucares_adicionados_diario_entry" : acucares_adicionados_diario,
+        
+            "proteinas_cem_gramas_entry" : proteinas_cem_gramas,
+        
+            "proteinas_diario_entry" : proteinas_diario,
+
+            "gorduras_totais_cem_gramas_entry" : gorduras_totais_cem_gramas,
+        
+            "gorduras_totais_diario_entry" : gorduras_totais_diario,
+
+
+            "gorduras_saturadas_cem_gramas_entry" : gorduras_saturadas_cem_gramas,
+            
+            "gorduras_saturadas_diario_entry" : gorduras_saturadas_diario,
+
+        
+            "gorduras_trans_cem_gramas_entry" : gorduras_trans_cem_gramas,
+        
+            "gorduras_trans_diario_entry" : gorduras_trans_diario,
+
+            
+            "fibra_alimentar_cem_gramas_entry" : fibra_alimentar_cem_gramas,
+            
+            "fibra_alimentar_diario_entry" : fibra_alimentar_diario,
+                    
+            "sodio_cem_gramas_entry" : sodio_cem_gramas,
+            
+            "sodio_diario_entry": sodio_diario,
+     
+        }
+
+        # Salvar o produto usando o controller
+        self.controller.salvar_produto(dados_produto)
+
+        # Limpar os campos do formulário
+        self.tipo_combobox.set('')
+        corte_entry.delete(0, tk.END)
+        sexo_combobox.set('')
+        codigo_barras_entry.delete(0, tk.END)
+        porcao_embalagem_entry.delete(0, tk.END)
+        porcao_entry.delete(0, tk.END)
+        campo_adicional_entry.delete("1.0", tk.END)
+        valor_energetico_cem_gramas_entry.delete(0, tk.END)
+        valor_energetico_diario_entry.delete(0, tk.END)
+        # Limpar os outros campos da informação nutricional aqui
+
+        # Adicione qualquer lógica adicional após salvar o produto
 
     def abrir_proxima_tela(self):
         self.master.master.master.mudar_tela(Home)
-
