@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-from ttkbootstrap import Style
+# from ttkbootstrap import Style
 from controllers import TkinterController
 
 class CadastroEmpresa(tk.Frame):

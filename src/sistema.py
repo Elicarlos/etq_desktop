@@ -2,7 +2,7 @@ from PIL import Image, ImageTk
 import tkinter as tk
 from tkinter import ttk 
 from ttkbootstrap import ttk as ttkbs
-from ttkbootstrap.constants import *
+# from ttkbootstrap.constants import *
 from ttkbootstrap import Style
 
 
@@ -21,12 +21,12 @@ class Sistema(tk.Tk):
         # self.geometry("400x300")
         self.tela_atual = None
         # self.window = window
-        self.title('Sistema Gerenciador')
+        self.title('Etiqutário')
         self.geometry('1366x768')
         self.state('zoomed')
         self.config(background="#eff5f6")
 
-        style = Style("cosmo")
+        style = Style(theme="darkly")
         
 
        
@@ -49,7 +49,7 @@ class Sistema(tk.Tk):
         icon = ImageTk.PhotoImage(self.home_image)
         self.iconphoto(True, icon)
 
-        self.header = ttk.Frame(self, bootstyle=PRIMARY)
+        self.header = ttk.Frame(self)
         self.header.place(x=300, y=0, width=1070, height=70)
         # self.logout_text = ttk.Button(self.header, text='Sair', style='TButton', 
         #     font=('', 13, 'bold'), bd=0, fg='white',
@@ -173,13 +173,16 @@ class Sistema(tk.Tk):
 
         
         # Meus frames devem redenrizar aqui
-        self.bodyframe1 = tk.Frame(self, bg="#ffffff")
+        self.bodyframe1 = tk.Frame(self, bg="#FF0000")
         self.bodyframe1.place(x=328, y=110, width=1060, height=540)
 
-        
+        self.background_frame = tk.Frame(self, bg="#CCCCCC")
+        self.background_frame.place(x=328, y=110, width=1060, height=540)
 
-        self.central_frame = tk.Frame(self.bodyframe1)
+        self.central_frame = tk.Frame(self.background_frame)
         self.central_frame.pack(expand=True, fill='both')
+
+        
 
         self.frames = {}
 
@@ -231,12 +234,7 @@ class Sistema(tk.Tk):
     #     self.tela_atual = nova_tela
     #     self.tela_atual.pack(expand=True, fill='both')
 
-def mostrar_form_pop_up():
-        pop_up = tk.Toplevel(app)
-    
-        pop_up.title('Cadastro Tipo de Corte')
 
-        cadastro_tipo_popup = CadastroTipo(pop_up)
        
 if __name__ == "__main__":
     app = Sistema()

@@ -28,35 +28,35 @@ class ItemNutricional(Base):
     tipo = ForeignKeyField(Tipo, backref='itens_nutricionais', on_delete='CASCADE')
     corte = CharField(max_length=100, unique=True)
 
-    valor_energetico_100g = FloatField(default=0.0)
-    valor_energetico_vd = FloatField(default=0.0)
+    valor_energetico_100g = FloatField()
+    valor_energetico_vd = FloatField()
 
-    carboidratos_totais_100g = FloatField(default=0.0)
-    carboidratos_totais_vd = FloatField(default=0.0)
+    carboidratos_totais_100g = FloatField()
+    carboidratos_totais_vd = FloatField()
 
-    acucares_totais_100g = FloatField(default=0.0)
-    acucares_totais_vd = FloatField(default=0.0)
+    acucares_totais_100g = FloatField()
+    acucares_totais_vd = FloatField()
 
-    acucares_adicionados_100g = FloatField(default=0.0)
-    acucares_adicionados_vd = FloatField(default=0.0)
+    acucares_adicionados_100g = FloatField()
+    acucares_adicionados_vd = FloatField()
 
-    proteinas_100g = FloatField(default=0.0)
-    proteinas_vd = FloatField(default=0.0)
+    proteinas_100g = FloatField()
+    proteinas_vd = FloatField()
 
-    gorduras_totais_100g = FloatField(default=0.0)
-    gorduras_totais_vd = FloatField(default=0.0)
+    gorduras_totais_100g = FloatField()
+    gorduras_totais_vd = FloatField()
 
-    gorduras_saturadas_100g = FloatField(default=0.0)
-    gorduras_saturadas_vd = FloatField(default=0.0)
+    gorduras_saturadas_100g = FloatField()
+    gorduras_saturadas_vd = FloatField()
 
-    gorduras_trans_100g = FloatField(default=0.0)
-    gorduras_trans_vd = FloatField(default=0.0)
+    gorduras_trans_100g = FloatField()
+    gorduras_trans_vd = FloatField()
 
-    fibra_alimentar_100g = FloatField(default=0.0)
-    fibra_alimentar_vd = FloatField(default=0.0)
+    fibra_alimentar_100g = FloatField()
+    fibra_alimentar_vd = FloatField()
 
-    sodio_100g = FloatField(default=0.0)
-    sodio_vd = FloatField(default=0.0)
+    sodio_100g = FloatField()
+    sodio_vd = FloatField()
 
     porcao_embalagem = CharField(default="")
     porcao = CharField(default="")

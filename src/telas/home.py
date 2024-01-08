@@ -1,6 +1,7 @@
-from ttkbootstrap import ttk
+# from ttkbootstrap import ttk
 import tkinter as tk
 from tkinter import messagebox
+from tkinter import ttk
 from .cadastro_produto import CadastroProduto
 
 class Home(tk.Frame):
