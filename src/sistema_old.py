@@ -18,7 +18,7 @@ from telas.cadastro_empresa import CadastroEmpresa
 
 import os
 
-class Sistema(ctk.CTk):
+class Sistema(tk.Tk):
     def __init__(self):
         super().__init__()
         # self.title('Etiquetário')
@@ -58,8 +58,8 @@ class Sistema(ctk.CTk):
         
         # self.logout_text.place(x=950, y=15)
 
-        self.sidebar = ctk.CTkFrame(self)
-        self.sidebar.place(x=0, y=0 ) # width=300, height=750
+        self.sidebar = tk.Frame(self, bg='#ffffff')
+        self.sidebar.place(x=0, y=0, width=300, height=750)
 
            
 

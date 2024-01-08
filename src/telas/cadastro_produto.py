@@ -195,6 +195,7 @@ class CadastroProduto(tk.Frame):
         porcao_embalagem = self.porcao_embalagem_entry.get()
         porcao = self.porcao_entry.get()
         campo_adicional = self.campo_adicional_entry.get("1.0", tk.END).strip()
+
         # Coletar dados do formulário de informação nutricional
         valor_energetico_cem_gramas = self.valor_energetico_cem_gramas_entry.get()
         valor_energetico_diario = self.valor_energetico_diario_entry.get()
@@ -265,6 +266,27 @@ class CadastroProduto(tk.Frame):
             self.campo_adicional_entry.delete("1.0", tk.END)
             self.valor_energetico_cem_gramas_entry.delete(0, tk.END)
             self.valor_energetico_diario_entry.delete(0, tk.END)
+            self.valor_energetico_cem_gramas_entry.delete(0, tk.END)
+            self.valor_energetico_diario_entry.delete(0, tk.END)
+            self.carboidratos_totais_cem_gramas_entry.delete(0, tk.END)  
+            self.carboidratos_totais_diario_entry.delete(0, tk.END)   
+            self.acucares_totais_cem_gramas_entry.delete(0, tk.END)  
+            self.acucares_totais_diario_entry.delete(0, tk.END)
+            self.acucares_adicionados_cem_gramas_entry.delete(0, tk.END)       
+            self.acucares_adicionados_diario_entry.delete(0, tk.END)
+            self.proteinas_cem_gramas_entry.delete(0, tk.END)   
+            self.proteinas_diario_entry.delete(0, tk.END)
+            self.gorduras_totais_cem_gramas_entry.delete(0, tk.END)      
+            self.gorduras_totais_diario_entry.delete(0, tk.END)
+            self.gorduras_saturadas_cem_gramas_entry.delete(0, tk.END)       
+            self.gorduras_saturadas_diario_entry.delete(0, tk.END)     
+            self.gorduras_trans_cem_gramas_entry.delete(0, tk.END)       
+            self.gorduras_trans_diario_entry.delete(0, tk.END)       
+            self.fibra_alimentar_cem_gramas_entry.delete(0, tk.END)        
+            self.fibra_alimentar_diario_entry.delete(0, tk.END)
+            self.sodio_cem_gramas_entry.delete(0, tk.END)
+            self.sodio_diario_entry.delete(0, tk.END)        
+
         
         except Exception as e:
             print(e)
