@@ -5,27 +5,25 @@ from tkinter import ttk
 # from ttkbootstrap.constants import *
 # from ttkbootstrap import Style
 
-import customtkinter as ctk 
-ctk.set_appearance_mode("dark") 
-ctk.set_default_color_theme("blue") 
-
 
 from telas.home import Home
 from telas.cadastro_produto import CadastroProduto
 # from telas.cadastro_tipo import CadastroTipo
 from telas.cadastro_empresa import CadastroEmpresa
 
+from telas.edite_produto import EditeProduto
+
 
 import os
 
-class Sistema(ctk.CTk):
+class Sistema(tk.Tk):
     def __init__(self):
         super().__init__()
         # self.title('Etiquetário')
         # self.geometry("400x300")
         self.tela_atual = None
         # self.window = window
-        self.title('Etiqutário')
+        self.title('Etiquetário')
         self.geometry('1366x768')
         self.state('zoomed')
         self.config(background="#eff5f6")
@@ -58,8 +56,8 @@ class Sistema(ctk.CTk):
         
         # self.logout_text.place(x=950, y=15)
 
-        self.sidebar = ctk.CTkFrame(self)
-        self.sidebar.place(x=0, y=0 ) # width=300, height=750
+        self.sidebar = tk.Frame(self, bg='#ffffff')
+        self.sidebar.place(x=0, y=0, width=300, height=750)
 
            
 
@@ -144,6 +142,11 @@ class Sistema(ctk.CTk):
         self.btn_cadastro_empresa.place(x=70, y=160)
 
 
+        self.btn_cadastro_empresa = ttk.Button(self.sidebar, 
+            text='Edite Produto', command=lambda: self.mudar_tela(EditeProduto))
+        self.btn_cadastro_empresa.place(x=70, y=160)
+
+
         # self.settings_text = ttk.Button(self.sidebar, text="Settings", 
         #                             font=('', 13, 'bold'),style='TButton',
         #     cursor="hand2",bd=0, activebackground='#ffffff')
@@ -190,6 +193,7 @@ class Sistema(ctk.CTk):
         self.frames[Home] = Home(self.central_frame)
         self.frames[CadastroEmpresa] = CadastroEmpresa(self.central_frame)
         self.frames[CadastroProduto] = CadastroProduto(self.central_frame)
+        self.frames[EditeProduto] = EditeProduto(self.central_frame)
         # self.frames[TelaSecundaria] = TelaSecundaria(self.central_frame)
 
         # Inicialize a tela inicial

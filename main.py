@@ -1,10 +1,43 @@
-from PIL import Image, ImageTk
-import tkinter as tk
-from tkinter import ttk
-import ttkbootstrap as ttk
-from ttkbootstrap.constants import *
+import customtkinter
+
+customtkinter.set_appearance_mode('blue')
+
+customtkinter.set_default_color_theme('green')
 
 
+app = customtkinter.CTk()
+app.geometry('500X350')
+
+def login():
+    print("Teste")
+
+
+frame = customtkinter.CTkFrame(master=app)
+frame.pack(pady=20, padx=60, fill="both", expand=True)
+
+l1 = customtkinter.CTkLabel(master=frame, text="Teste")
+
+
+
+
+l1.pack(pady=12, padx=10)
+
+descricao = customtkinter.CTkEntry(master=frame, width=250, placeholder="Insira")
+descricao.pack(pady=12, padx=10)
+
+a = customtkinter.CTkEntry(master=frame)
+a.pack(pady=12, padx=10)
+
+b = customtkinter.CTkEntry(master=frame)
+b.pack(pady=12, padx=10)
+
+c = customtkinter.CTkEntry(master=frame)
+c.pack(pady=12, padx=10)
+
+btn = customtkinter.CTkButton(master=frame)
+btn.pack(pady=60, padx=10)
+
+app.mainloop()
 
 # window = tkinter.Tk()
 # def cadastro_produto():    
