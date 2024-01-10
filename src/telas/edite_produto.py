@@ -11,46 +11,52 @@ class  EditeProduto(tk.Frame):
         self.criar_widgets()
         self.carregar_produtos()
 
-    
     def criar_widgets(self):
         buscar_produtos = ttk.Entry(self, width=80)
-        buscar_produtos.place(x=0, y=30)
+        buscar_produtos.pack(side=tk.LEFT, padx=5)
 
-        btn_adicionar_prodotus = ttk.Button(self,text="Buscar")
-        btn_adicionar_prodotus.place(x=500, y=30)
+        btn_adicionar_produto = ttk.Button(self, text="Buscar")
+        btn_adicionar_produto.pack(side=tk.LEFT, padx=5)
 
-        btn_adicionar_prodotus = ttk.Button(self,text="Adicionar Produto")
-        btn_adicionar_prodotus.place(x=950, y=30)
+        btn_adicionar_produto = ttk.Button(self, text="Adicionar Produto")
+        btn_adicionar_produto.pack(side=tk.LEFT, padx=5)
 
         self.colunas = ('Corte', 'Tipo', 'Sexo')
 
         self.tree = ttk.Treeview(self, columns=self.colunas, show='headings')
-  
+
         self.tree.heading("0", text="Corte")
         self.tree.heading("1", text="Tipo")
         self.tree.heading("2", text="Sexo")
         self.tree.pack(pady=10)
-       
 
     def carregar_produtos(self):
         # Limpar a Treeview antes de recarregar
         for item in self.tree.get_children():
             self.tree.delete(item)
-        
-        lista_produtos = self.controller.obter_itens_nutricionais()
-        print(lista_produtos)
+
+        produtos = self.controller.obter_itens_nutricionais()
 
         # Consultar todos os produtos do banco de dados
-        for produto in lista_produtos:
-            self.tree.insert("", tk.END, values=produto)
-    
+        for i, item in enumerate(produtos):
+            self.tree.insert("", tk.END, values=(item.corte, item.fibra_alimentar_100g))
 
-        # Adicionar produtos ao Treeview
-        # for produto in produtos:
-        #     # tipo_nome = produto.tipo.tipo
-        #     tipo_nome = 'Teste'
-        #     corte = produto.corte
-        #     sexo = produto.sexo
-        #     self.tree.insert("", tk.END, values=(tipo_nome, corte, sexo))
+            # Adiciona botões de edição, apagar e impressão fora do Treeview
+            editar_button = tk.Button(self, text='Editar', command=lambda item=item: self.editar_item(item))
+            apagar_button = tk.Button(self, text='Apagar', command=lambda item=item: self.apagar_item(item))
+            imprimir_button = tk.Button(self, text='Imprimir', command=lambda item=item: self.imprimir_item(item))
 
+            # Coloca os botões ao lado do Treeview
+            editar_button.pack(side=tk.LEFT, padx=5)
+            apagar_button.pack(side=tk.LEFT, padx=5)
+            imprimir_button.pack(side=tk.LEFT, padx=5)
 
+    # Funções de exemplo para edição, exclusão e impressão
+    def editar_item(self, item):
+        print(f'Editar: {item.corte}')
+
+    def apagar_item(self, item):
+        print(f'Apagar: {item.corte}')
+
+    def imprimir_item(self, item):
+        print(f'Imprimir: {item.corte}')

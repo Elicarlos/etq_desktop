@@ -61,18 +61,9 @@ class TkinterController:
 
     @staticmethod
     def obter_itens_nutricionais():
-        itens = (ItemNutricional
-                .select(ItemNutricional.corte, Tipo.tipo)
-                .join(Tipo, on=(ItemNutricional.tipo == Tipo.id)))
-
-        # Adicione um print para verificar os resultados intermediários
-        for i in itens:
-            print(f'Corte: {i.corte}, Tipo: {i.tipo.tipo}')
-
-        # Crie a lista após verificar os resultados
-        lista_itens = [(i.corte, i.tipo.tipo) for i in itens]
-
-        return lista_itens
+        produtos = ItemNutricional.select()
+        return produtos
+     
 
 
 
