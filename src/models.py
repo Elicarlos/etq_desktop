@@ -25,7 +25,7 @@ class Tipo(Base):
     tipo = CharField(max_length=100, unique=True)
 
 class ItemNutricional(Base):
-    tipo = ForeignKeyField(Tipo, backref='itens_nutricionais', on_delete='CASCADE')
+    tipo = ForeignKeyField(Tipo, backref='tipos', on_delete='CASCADE')
     corte = CharField(max_length=100, unique=True)
 
     valor_energetico_100g = FloatField()

@@ -61,9 +61,11 @@ class TkinterController:
 
     @staticmethod
     def obter_itens_nutricionais():
-        produtos = ItemNutricional.select()
-        return produtos
-     
+        itens_nutricionais = ItemNutricional.select().join(Tipo)
+        for item in itens_nutricionais:
+            print(item)
+        # return list(itens_nutricionais)
+
 
 
 
