@@ -123,7 +123,7 @@ class Sistema(tk.Tk):
         # self.cadastro_label.place(x=35, y=120)
         
         self.btn_cadastro_produto = ttk.Button(self.sidebar, 
-            text='Cadastro Produtos', command=lambda: self.mudar_tela(CadastroProduto))
+            text='Produtos', command=lambda: self.mudar_tela(EditeProduto))
         self.btn_cadastro_produto.place(x=70, y=120)
 
 
