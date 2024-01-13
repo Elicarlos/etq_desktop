@@ -27,13 +27,15 @@ class EditeProduto(tk.Frame):
         btn_adicionar_produto.place(x=530, y=130)
 
         if not hasattr(self, 'tree'):
-            self.tree = ttk.Treeview(self, columns=("Corte", "Tipo", "Fibra", "Ação"), show="headings")
-
+            self.tree = ttk.Treeview(self, columns=("Id","Corte", "Tipo", "Fibra", "Ação"), show="headings")
+            
+            self.tree.heading("Id", text="Id", anchor=tk.W)
             self.tree.heading("Corte", text="Corte")
             self.tree.heading("Tipo", text="Tipo")
             self.tree.heading("Fibra", text="Fibra")
             self.tree.heading("Ação", text="Ação")
 
+            self.tree.column("Id", width=0, stretch=tk.NO)
             self.tree.column("Corte", width=200)
             self.tree.column("Tipo", width=100)
             self.tree.column("Fibra", width=200)
@@ -49,17 +51,18 @@ class EditeProduto(tk.Frame):
 
     def adicionar_dados(self):
         dados = self.controller.obter_itens_nutricionais()
-
+ 
         for item in self.tree.get_children():
             self.tree.delete(item)
 
         for dado in dados:
+            id = dado.get('id', '')
             corte = dado.get('corte', '')
             tipo = dado.get('tipo', '')
             fibra_alimentar_100g = dado.get('fibra_alimentar_100g', '')
 
             # Adicionar dados à Treeview, incluindo a coluna de ícones
-            item = self.tree.insert("", tk.END, values=(corte, tipo, fibra_alimentar_100g, "Editar"))
+            item = self.tree.insert("", tk.END, values=(id, corte, tipo, fibra_alimentar_100g, "Editar"))
             
             # Adicionar tags para os botões
             self.tree.tag_configure('editar', background='lightblue')
@@ -68,18 +71,24 @@ class EditeProduto(tk.Frame):
         item_id = self.tree.identify_row(event.y)
         col_id = self.tree.identify_column(event.x)
 
-        if item_id and col_id == '#4':  # Coluna "Ação"
-            acao = self.tree.item(item_id, 'values')[3]
+        if item_id and col_id == '#5':  # Coluna "Ação"
+            acao = self.tree.item(item_id, 'values')[4] 
 
             if acao == "Editar":
+                # Obtenha o ID da linha clicada
+                produto_data = self.tree.item(item_id, 'values')
+                # print(produto_data)
+
                 # Obtenha os dados do produto selecionado
                 produto_data = self.tree.item(item_id, 'values')
-                
-                # Recupere o ID do produto do banco de dados (supondo que a posição 0 seja o ID)
+
+                # Recupere o ID do produto da primeira coluna
                 produto_id = produto_data[0]
+                # print(produto_id)
 
                 # Recupere os dados do produto do banco de dados usando o ID
-                dados_do_banco = self.controller.obter_dados_do_produto_por_id(produto_id)
+                dados_do_banco = self.controller.obter_item_nutricional_por_id(produto_id)
+             
 
                 # Crie uma instância do CadastroProduto passando o Toplevel como mestre e os dados do produto
                 cadastro_produto_popup = tk.Toplevel(self.master)

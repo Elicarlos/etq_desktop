@@ -152,111 +152,74 @@ class CadastroProduto(tk.Frame):
     def preencher_campos(self):
         if self.dados_produto:
             # Supondo que você tenha widgets como entry_corte, entry_tipo, entry_fibra, etc.
+            produto = self.dados_produto
             
-            print(self.dados_produto)
-            print(dir(self.dados_produto))
-            # corte, tipo, fibra = self.dados_produto#[:3]
+            tipo = produto.tipo_id         
+            corte = produto.corte
+            sexo = produto.sexo
+            codigo_barras = produto.codigo_barras
+            porcao_embalagem = produto.porcao_embalagem
+            porcao = produto.porcao
+            campo_adicional = produto.campo_adicional
+
+            valor_energetico_cem_gramas = produto.valor_energetico_100g
+            valor_energetico_diario = produto.valor_energetico_vd
+            carboidratos_totais_cem_gramas = produto.carboidratos_totais_100g
+            carboidratos_totais_diario = produto.carboidratos_totais_vd
+            acucares_totais_cem_gramas = produto.acucares_totais_100g
+            acucares_totais_diario = produto.acucares_totais_vd
+            acucares_adicionados_cem_gramas = produto.acucares_adicionados_100g
+            acucares_adicionados_diario = produto.acucares_adicionados_vd
+            proteinas_cem_gramas = produto.proteinas_100g
+            proteinas_diario = produto.proteinas_vd
+            gorduras_totais_cem_gramas = produto.gorduras_totais_100g
+            gorduras_totais_diario = produto.gorduras_totais_vd
+            gorduras_saturadas_cem_gramas = produto.gorduras_saturadas_100g    
+            gorduras_saturadas_diario  =   produto.gorduras_saturadas_vd   
+            gorduras_trans_cem_gramas = produto.gorduras_trans_100g     
+            gorduras_trans_diario =   produto.gorduras_trans_vd
+            fibra_alimentar_cem_gramas =  produto.fibra_alimentar_100g
+            fibra_alimentar_diario = produto.fibra_alimentar_vd
+            sodio_cem_gramas =  produto.sodio_100g
+            sodio_diario = produto.sodio_vd
+              
 
             # Preencha os campos com os dados do produto selecionado
-            # self.corte_entry.insert(0, corte)            
-            #self.sexo_combobox = ttk.Combobox(produto_info_frame, values=["F", "M"], state='readonly' )
-        
-            # self.codigo_barras_entry.insert(codigo_barras,0)
-            # self.codigo_barras_entry.grid(row=3, column=1, padx=10, pady=5, sticky="ew")
-            # self.porcao_embalagem_entry = ttk.Entry(produto_info_frame)
-            # self.porcao_embalagem_entry.grid(row=4, column=1, padx=10, pady=5, sticky="ew")
-            # self.porcao_entry = ttk.Entry(produto_info_frame)
-            # self.porcao_entry.grid(row=5, column=1, padx=10, pady=5, sticky="ew")
+            self.tipo_combobox.set('')
+            self.tipo_combobox.set(tipo)
+            self.corte_entry.insert(0, corte)            
+            # Para ComboBox
+            # Limpe a seleção anterior, se houver
+            self.sexo_combobox.set('')
+            # Selecione o valor correto no ComboBox
+            self.sexo_combobox.set(sexo)
+            self.codigo_barras_entry.insert(0, codigo_barras)           
+            self.porcao_embalagem_entry.insert(0, porcao_embalagem)       
+            self.porcao_entry.insert(0, porcao) 
+            self.campo_adicional_entry.insert('1.0', campo_adicional)
+            self.valor_energetico_cem_gramas_entry.insert(0, valor_energetico_cem_gramas)
+            self.valor_energetico_diario_entry.insert(0, valor_energetico_diario)
+            self.carboidratos_totais_cem_gramas_entry.insert(0,carboidratos_totais_cem_gramas)            
+            self.carboidratos_totais_diario_entry.insert(0, carboidratos_totais_diario)
+            self.acucares_totais_cem_gramas_entry.insert(0, acucares_totais_cem_gramas)              
+            self.acucares_totais_diario_entry.insert(0, acucares_totais_diario)
+            self.acucares_adicionados_cem_gramas_entry.insert(0, acucares_adicionados_cem_gramas)            
+            self.acucares_adicionados_diario_entry.insert(0, acucares_adicionados_diario) 
+            self.proteinas_cem_gramas_entry.insert(0, proteinas_cem_gramas)            
+            self.proteinas_diario_entry.insert(0, proteinas_diario)
+            self.gorduras_totais_cem_gramas_entry.insert(0, gorduras_totais_cem_gramas)            
+            self.gorduras_totais_diario_entry.insert(0, gorduras_totais_diario)
 
-            # self.campo_adicional_label = ttk.Label(produto_info_frame, text='Campo adicional')
-            # self.campo_adicional_label.grid(row=6, column=0, padx=10, pady=5, sticky="w")
-            # self.campo_adicional_entry = tk.Text(produto_info_frame, height=4, width=40)
-            # self.campo_adicional_entry.grid(row=7, column=0, columnspan=2, padx=10, pady=5, sticky="ew")
+            self.gorduras_saturadas_cem_gramas_entry.insert(0, gorduras_saturadas_cem_gramas)        
+            self.gorduras_saturadas_diario_entry.insert(0, gorduras_saturadas_diario)                 
+            self.gorduras_trans_cem_gramas_entry.insert(0,gorduras_trans_cem_gramas)        
+            self.gorduras_trans_diario_entry .insert(0, gorduras_trans_diario)           
+            self.fibra_alimentar_cem_gramas_entry .insert(0, fibra_alimentar_cem_gramas)     
+            self.fibra_alimentar_diario_entry.insert(0, fibra_alimentar_diario)     
+            self.sodio_cem_gramas_entry.insert(0, sodio_cem_gramas)      
+            self.sodio_diario_entry.insert(0, sodio_diario)
+         
 
-            # # Titulos
-            # self.cem_gramas_label = ttk.Label(nutricional_frame, text='100g')
-            # self.cem_gramas_label.grid(row=0, column=1, padx=10, pady=5)
-            # self.valor_diario_label = ttk.Label(nutricional_frame, text="% VD*")
-            # self.valor_diario_label.grid(row=0, column=2, padx=10, pady=5)
-
-            # self.valor_energetico_label = ttk.Label(nutricional_frame, text='Valor energético (kcal)')
-            # self.valor_energetico_label.grid(row=1, column=0, padx=10, pady=5)
-            # self.valor_energetico_cem_gramas_entry = ttk.Entry(nutricional_frame)
-            # self.valor_energetico_cem_gramas_entry.grid(row=1, column=1, padx=10, pady=5)
-
-            # self.valor_energetico_diario_entry = ttk.Entry(nutricional_frame)
-            # self.valor_energetico_diario_entry.grid(row=1, column=2, padx=10, pady=5)
-
-            # self.carboidratos_totais_label = ttk.Label(nutricional_frame, text='Carboidratos Totais (g)')
-            # self.carboidratos_totais_label.grid(row=2, column=0, padx=10, pady=5)
-
-            # self.carboidratos_totais_cem_gramas_entry = ttk.Entry(nutricional_frame)
-            # self.carboidratos_totais_cem_gramas_entry.grid(row=2, column=1, padx=10, pady=5)  
-            # self.carboidratos_totais_diario_entry = ttk.Entry(nutricional_frame)
-            # self.carboidratos_totais_diario_entry.grid(row=2, column=2, padx=10, pady=5)
-
-            # self.acucares_totais_label = ttk.Label(nutricional_frame, text='Açucares Totais (g)')
-            # self.acucares_totais_label.grid(row=3, column=0, padx=10, pady=5)
-
-            # self.acucares_totais_cem_gramas_entry = ttk.Entry(nutricional_frame)
-            # self.acucares_totais_cem_gramas_entry.grid(row=3, column=1, padx=10, pady=5)  
-            # self.acucares_totais_diario_entry = ttk.Entry(nutricional_frame)
-            # self.acucares_totais_diario_entry.grid(row=3, column=2, padx=10, pady=5)
-
-            # self.acucares_adicionados_label = ttk.Label(nutricional_frame, text='Açucares Adicionados (g)')
-            # self.acucares_adicionados_label.grid(row=4, column=0, padx=10, pady=5)
-
-            # self.acucares_adicionados_cem_gramas_entry = ttk.Entry(nutricional_frame)
-            # self.acucares_adicionados_cem_gramas_entry.grid(row=4, column=1, padx=10, pady=5)  
-            # self.acucares_adicionados_diario_entry = ttk.Entry(nutricional_frame)
-            # self.acucares_adicionados_diario_entry.grid(row=4, column=2, padx=10, pady=5)
-
-            # self.proteinas_label = ttk.Label(nutricional_frame, text='Proteínas (g)')
-            # self.proteinas_label.grid(row=5, column=0, padx=10, pady=5)
-
-            # self.proteinas_cem_gramas_entry = ttk.Entry(nutricional_frame)
-            # self.proteinas_cem_gramas_entry.grid(row=5, column=1, padx=10, pady=5)  
-            # self.proteinas_diario_entry = ttk.Entry(nutricional_frame)          
-            # self.proteinas_diario_entry.grid(row=5, column=2, padx=10, pady=5)
-
-            # self.gorduras_totais_label = ttk.Label(nutricional_frame, text='Gorduras totais (g)')
-            # self.gorduras_totais_label.grid(row=6, column=0, padx=10, pady=5)
-
-            # self.gorduras_totais_cem_gramas_entry = ttk.Entry(nutricional_frame)
-            # self.gorduras_totais_cem_gramas_entry.grid(row=6, column=1, padx=10, pady=5)  
-            # self.gorduras_totais_diario_entry = ttk.Entry(nutricional_frame)
-            # self.gorduras_totais_diario_entry.grid(row=6, column=2, padx=10, pady=5)
-
-            # self.gorduras_saturadas_label = ttk.Label(nutricional_frame, text='Gorduras saturadas (g)')
-            # self.gorduras_saturadas_label.grid(row=7, column=0, padx=10, pady=5)
-            # self.gorduras_saturadas_cem_gramas_entry = ttk.Entry(nutricional_frame)
-            # self.gorduras_saturadas_cem_gramas_entry.grid(row=7, column=1, padx=10, pady=5)  
-            # self.gorduras_saturadas_diario_entry = ttk.Entry(nutricional_frame)
-            # self.gorduras_saturadas_diario_entry.grid(row=7, column=2, padx=10, pady=5)
-
-            # self.gorduras_trans_label = ttk.Label(nutricional_frame, text='Gorduras trans (g)')
-            # self.gorduras_trans_label.grid(row=8, column=0, padx=10, pady=5)
-            # self.gorduras_trans_cem_gramas_entry = ttk.Entry(nutricional_frame)
-            # self.gorduras_trans_cem_gramas_entry.grid(row=8, column=1, padx=10, pady=5)  
-            # self.gorduras_trans_diario_entry = ttk.Entry(nutricional_frame)
-            # self.gorduras_trans_diario_entry.grid(row=8, column=2, padx=10, pady=5)
-
-            # self.fibra_alimentar_label = ttk.Label(nutricional_frame, text='Fibra alimentar (g)')
-            # self.fibra_alimentar_label.grid(row=9, column=0, padx=10, pady=5)
-            # self.fibra_alimentar_cem_gramas_entry = ttk.Entry(nutricional_frame)
-            # self.fibra_alimentar_cem_gramas_entry.grid(row=9, column=1, padx=10, pady=5)  
-            # self.fibra_alimentar_diario_entry = ttk.Entry(nutricional_frame)
-            # self.fibra_alimentar_diario_entry.grid(row=9, column=2, padx=10, pady=5)
-
-            # self.sodio_label = ttk.Label(nutricional_frame, text='Sódio (mg)')
-            # self.sodio_label.grid(row=10, column=0, padx=10, pady=5)
-            # self.sodio_cem_gramas_entry = ttk.Entry(nutricional_frame)
-            # self.sodio_cem_gramas_entry.grid(row=10, column=1, padx=10, pady=5)  
-            # self.sodio_diario_entry = ttk.Entry(nutricional_frame)
-            # self.sodio_diario_entry.grid(row=10, column=2, padx=10, pady=5)
-
-            # self.entry_tipo.insert(0, tipo)
-            # self.entry_fibra.insert(0, fibra)
 
 
     def abrir_popup(self):
