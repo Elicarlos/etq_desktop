@@ -8,6 +8,7 @@ class CadastroProduto(tk.Frame):
     def __init__(self, master=None,  dados_produto=None):
         super().__init__(master)
         self.master = master
+        self.config(background="#FFFFFF")
         self.controller = TkinterController()
         self.dados_produto = dados_produto
         self.tipo_combobox = None  # Adicione esta linha
@@ -21,7 +22,7 @@ class CadastroProduto(tk.Frame):
         notebook = ttk.Notebook(self)
         notebook.grid(row=0, column=0, pady=10, padx=10, sticky="nsew")
 
-        produto_info_frame = ttk.Frame(notebook)
+        produto_info_frame = tk.Frame(notebook, bg="#ffffff")
         notebook.add(produto_info_frame, text='Produto')
 
         # Labels e Combobox/Entries
@@ -253,7 +254,6 @@ class CadastroProduto(tk.Frame):
         tipo_selecionado = self.tipo_combobox.get()
 
     def salvar_tipo(self, novo_tipo, popup):
-        print("Funcao salvar tipo")
         if novo_tipo:
             print(novo_tipo)
             self.controller.criar_tipo(novo_tipo)
@@ -330,49 +330,59 @@ class CadastroProduto(tk.Frame):
         }
 
         # Salvar o produto usando o controller
-        try:            
-            self.controller.salvar_produto(dados_produto)
-            messagebox.showinfo("Sucesso", "Empresa cadastrada com sucesso!")
+        if self.dados_produto:
+            try:
+                self.controller.atualizar_item_nutricional(self.dados_produto.id, dados_produto)
+                messagebox.showinfo('Sucesso', 'Produto Atualizado com sucesso')
+                self.fechar_popup()
+            
+            except Exception as e:
+                messagebox.showerror('Erro', f'Erro ao atualizar o corte {e}')
 
-            # Limpar os campos do formulário
-            self.tipo_combobox.set('')
-            self.corte_entry.delete(0, tk.END)
-            self.sexo_combobox.set('')
-            self.codigo_barras_entry.delete(0, tk.END)
-            self.porcao_embalagem_entry.delete(0, tk.END)
-            self.porcao_entry.delete(0, tk.END)
-            self.campo_adicional_entry.delete("1.0", tk.END)
-            self.valor_energetico_cem_gramas_entry.delete(0, tk.END)
-            self.valor_energetico_diario_entry.delete(0, tk.END)
-            self.valor_energetico_cem_gramas_entry.delete(0, tk.END)
-            self.valor_energetico_diario_entry.delete(0, tk.END)
-            self.carboidratos_totais_cem_gramas_entry.delete(0, tk.END)  
-            self.carboidratos_totais_diario_entry.delete(0, tk.END)   
-            self.acucares_totais_cem_gramas_entry.delete(0, tk.END)  
-            self.acucares_totais_diario_entry.delete(0, tk.END)
-            self.acucares_adicionados_cem_gramas_entry.delete(0, tk.END)       
-            self.acucares_adicionados_diario_entry.delete(0, tk.END)
-            self.proteinas_cem_gramas_entry.delete(0, tk.END)   
-            self.proteinas_diario_entry.delete(0, tk.END)
-            self.gorduras_totais_cem_gramas_entry.delete(0, tk.END)      
-            self.gorduras_totais_diario_entry.delete(0, tk.END)
-            self.gorduras_saturadas_cem_gramas_entry.delete(0, tk.END)       
-            self.gorduras_saturadas_diario_entry.delete(0, tk.END)     
-            self.gorduras_trans_cem_gramas_entry.delete(0, tk.END)       
-            self.gorduras_trans_diario_entry.delete(0, tk.END)       
-            self.fibra_alimentar_cem_gramas_entry.delete(0, tk.END)        
-            self.fibra_alimentar_diario_entry.delete(0, tk.END)
-            self.sodio_cem_gramas_entry.delete(0, tk.END)
-            self.sodio_diario_entry.delete(0, tk.END)
+        else:
+            try:
+                self.controller.salvar_produto(dados_produto)
+                messagebox.showinfo("Sucesso", "Corte cadastrado com sucesso!")
 
-            self.fechar_popup()      
+                # Limpar os campos do formulário
+                self.tipo_combobox.set('')
+                self.corte_entry.delete(0, tk.END)
+                self.sexo_combobox.set('')
+                self.codigo_barras_entry.delete(0, tk.END)
+                self.porcao_embalagem_entry.delete(0, tk.END)
+                self.porcao_entry.delete(0, tk.END)
+                self.campo_adicional_entry.delete("1.0", tk.END)
+                self.valor_energetico_cem_gramas_entry.delete(0, tk.END)
+                self.valor_energetico_diario_entry.delete(0, tk.END)
+                self.valor_energetico_cem_gramas_entry.delete(0, tk.END)
+                self.valor_energetico_diario_entry.delete(0, tk.END)
+                self.carboidratos_totais_cem_gramas_entry.delete(0, tk.END)  
+                self.carboidratos_totais_diario_entry.delete(0, tk.END)   
+                self.acucares_totais_cem_gramas_entry.delete(0, tk.END)  
+                self.acucares_totais_diario_entry.delete(0, tk.END)
+                self.acucares_adicionados_cem_gramas_entry.delete(0, tk.END)       
+                self.acucares_adicionados_diario_entry.delete(0, tk.END)
+                self.proteinas_cem_gramas_entry.delete(0, tk.END)   
+                self.proteinas_diario_entry.delete(0, tk.END)
+                self.gorduras_totais_cem_gramas_entry.delete(0, tk.END)      
+                self.gorduras_totais_diario_entry.delete(0, tk.END)
+                self.gorduras_saturadas_cem_gramas_entry.delete(0, tk.END)       
+                self.gorduras_saturadas_diario_entry.delete(0, tk.END)     
+                self.gorduras_trans_cem_gramas_entry.delete(0, tk.END)       
+                self.gorduras_trans_diario_entry.delete(0, tk.END)       
+                self.fibra_alimentar_cem_gramas_entry.delete(0, tk.END)        
+                self.fibra_alimentar_diario_entry.delete(0, tk.END)
+                self.sodio_cem_gramas_entry.delete(0, tk.END)
+                self.sodio_diario_entry.delete(0, tk.END)
+
+                self.fechar_popup()      
 
         
-        except Exception as e:
-            print(e)
-        # Limpar os outros campos da informação nutricional aqui
+            except Exception as e:
+                print(e)
+            # Limpar os outros campos da informação nutricional aqui
 
-        # Adicione qualquer lógica adicional após salvar o produto
+            # Adicione qualquer lógica adicional após salvar o produto
 
     def abrir_proxima_tela(self):
         self.master.master.master.mudar_tela(Home)

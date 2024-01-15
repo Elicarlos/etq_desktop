@@ -1,10 +1,9 @@
-from models import Empresa, Tipo, ItemNutricional, db
+from models import Empresa, Temperatura, Tipo, ItemNutricional, db
 
 
 class TkinterController:
     @staticmethod
-    @classmethod
-    def criar_empresa(cls, cnpj, razao_social, fantasia, numero_sif, registro_adapi):
+    def criar_empresa(cnpj, razao_social, fantasia, numero_sif, registro_adapi):
         with db.atomic():
             Empresa.create(
                 cnpj=cnpj,
@@ -14,8 +13,8 @@ class TkinterController:
                 registro_adapi=registro_adapi
             )
 
-    @classmethod
-    def atualizar_empresa(cls, empresa_id, cnpj, razao_social, fantasia, numero_sif, registro_adapi):
+    @staticmethod
+    def atualizar_empresa(empresa_id, cnpj, razao_social, fantasia, numero_sif, registro_adapi):
         with db.atomic():
             empresa = Empresa.get_by_id(empresa_id)
             empresa.cnpj = cnpj
@@ -25,8 +24,8 @@ class TkinterController:
             empresa.registro_adapi = registro_adapi
             empresa.save()
 
-    @classmethod
-    def criar_tipo(cls, tipo):
+    @staticmethod
+    def criar_tipo(tipo):
         try:
             with db.atomic():
                 # Certifique-se de substituir 'Tipo' pelo nome da sua classe modelo para tipos
@@ -35,8 +34,8 @@ class TkinterController:
         except Exception as e:
             print(f'Erro ao criar tipo: {str(e)}')
 
-
-    def salvar_produto(self,dados_produto):
+    @staticmethod
+    def salvar_produto(dados_produto):
         # Lógica para salvar o produto, por exemplo, em um banco de dados
         # Certifique-se de implementar essa lógica adequadamente
         print("Salvando produto:", dados_produto)
@@ -48,6 +47,20 @@ class TkinterController:
                 print(f'Produto {item_nutricional.id} salvo com sucesso!')
         except Exception as e:
             print(f'Erro ao salvar produto: {str(e)}')
+
+    @staticmethod
+    def salvar_tipo(dados_produto):
+        # Lógica para salvar o produto, por exemplo, em um banco de dados
+        # Certifique-se de implementar essa lógica adequadamente
+        print("Salvando tipo:", dados_produto)
+
+        try:
+            with db.atomic():
+                # Criar instância do modelo ItemNutricional
+                tipo = Tipo.create(**dados_produto)
+                print(f'Tipo {tipo.id} salvo com sucesso!')
+        except Exception as e:
+            print(f'Erro ao salvar tipo: {str(e)}')
             
 
     @staticmethod
@@ -58,6 +71,47 @@ class TkinterController:
     def obter_tipos():
         tipos = Tipo.select().dicts()
         return [tipo['tipo'] for tipo in tipos]
+    
+    
+    @staticmethod
+    def salvar_temperatura(dados_produto):
+        # Lógica para salvar o produto, por exemplo, em um banco de dados
+        # Certifique-se de implementar essa lógica adequadamente
+        print("Salvando produto:", dados_produto)
+
+        try:
+            with db.atomic():
+                # Criar instância do modelo ItemNutricional
+                temperatura = Temperatura.create(**dados_produto)
+                print(f'Produto {temperatura.id} salvo com sucesso!')
+        except Exception as e:
+            print(f'Erro ao salvar produto: {str(e)}')
+
+    @staticmethod
+    def atualizar_temperatura(item_id, valores_entradas):
+        return Temperatura.update(**valores_entradas).where(Temperatura.id == item_id).execute()
+
+
+
+    
+    @staticmethod
+    def obter_temperatura():
+        temperatura = Temperatura.select().dicts()
+        return list(temperatura)
+    
+    # @staticmethod
+    # def obter_temperatura():
+    #     temperaturas = Temperatura.select().dicts()
+    #     return [temperatura['temperatura'] for temperatura in temperaturas]
+    
+    
+    @staticmethod
+    def obter_temperatura_por_id(item_id):
+        return Temperatura.get_or_none(id=item_id)
+    
+    @staticmethod
+    def excluir_temperatura(item_id):
+        return Temperatura.delete().where(Temperatura.id == item_id).execute()
 
     @staticmethod
     def obter_itens_nutricionais():
@@ -65,6 +119,13 @@ class TkinterController:
         # for item in itens_nutricionais:
         #     print(item)
         return list(itens_nutricionais)
+    
+    @staticmethod
+    def obter_tipo_all():
+        tipos = Tipo.select().dicts()
+        # for item in itens_nutricionais:
+        #     print(item)
+        return list(tipos)
 
 
 
@@ -72,6 +133,15 @@ class TkinterController:
     @staticmethod
     def obter_item_nutricional_por_id(item_id):
         return ItemNutricional.get_or_none(id=item_id)
+    
+    @staticmethod
+    def obter_tipo_por_id(item_id):
+        return Tipo.get_or_none(id=item_id)
+    
+    @staticmethod
+    def atualizar_tipo(item_id, valores_entradas):
+        return Tipo.update(**valores_entradas).where(Tipo.id == item_id).execute()
+
 
     @staticmethod
     def atualizar_item_nutricional(item_id, valores_entradas):
@@ -80,3 +150,22 @@ class TkinterController:
     @staticmethod
     def excluir_item_nutricional(item_id):
         return ItemNutricional.delete().where(ItemNutricional.id == item_id).execute()
+
+    @staticmethod
+    def excluir_tipo(item_id):
+        return Tipo.delete().where(Tipo.id == item_id).execute()
+    
+
+    @staticmethod
+    def pesquisa(termo_pesquisa):
+       
+        # Realizar pesquisa no banco de dados usando o Peewee ORM
+        resultados = (ItemNutricional
+                      .select()
+                      .where(
+                          (ItemNutricional.codigo_barras == termo_pesquisa) |
+                          (ItemNutricional.corte == termo_pesquisa) 
+                      )
+                      .dicts()).execute()
+
+        return list(resultados)

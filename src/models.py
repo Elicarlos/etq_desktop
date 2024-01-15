@@ -67,6 +67,9 @@ class ItemNutricional(Base):
 
     informacoes_adicionais = TextField(default="")
 
+class Temperatura(Base):
+    temperatura = CharField()
+
 # Conectar e criar tabelas
 db.connect()
-db.create_tables([ItemNutricional, Empresa, Tipo])
+db.create_tables([ItemNutricional, Empresa, Tipo, Temperatura])

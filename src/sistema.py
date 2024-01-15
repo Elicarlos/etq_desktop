@@ -1,6 +1,7 @@
 from PIL import Image, ImageTk
 import tkinter as tk
-from tkinter import ttk 
+from tkinter import ttk
+from telas.edite_temperatura import EditeTemperatura 
 # from ttkbootstrap import ttk as ttkbs
 # from ttkbootstrap.constants import *
 # from ttkbootstrap import Style
@@ -12,6 +13,8 @@ from telas.cadastro_produto import CadastroProduto
 from telas.cadastro_empresa import CadastroEmpresa
 
 from telas.edite_produto import EditeProduto
+from telas.edite_tipo import EditeTipo
+
 
 
 import os
@@ -26,7 +29,7 @@ class Sistema(tk.Tk):
         self.title('Etiquetário')
         self.geometry('1366x768')
         self.state('zoomed')
-        self.config(background="#eff5f6")
+        self.config(background="#F0F1F6")
 
         # style = Style(theme="darkly")       
         
@@ -48,15 +51,15 @@ class Sistema(tk.Tk):
         icon = ImageTk.PhotoImage(self.home_image)
         self.iconphoto(True, icon)
 
-        # self.header = ttk.Frame(self)
-        # self.header.place(x=300, y=0, width=1070, height=70)
+        self.header = tk.Frame(self, bg='#FFFFFF')
+        self.header.place(x=300, y=0, width=1070, height=70)
         # self.logout_text = ttk.Button(self.header, text='Sair', style='TButton', 
         #     font=('', 13, 'bold'), bd=0, fg='white',
         #     cursor='hand2', activebackground="#32cf8e" )
         
         # self.logout_text.place(x=950, y=15)
 
-        self.sidebar = tk.Frame(self, bg='#ffffff')
+        self.sidebar = tk.Frame(self, bg='#2C2E3E')
         self.sidebar.place(x=0, y=0, width=300, height=750)
 
            
@@ -137,14 +140,20 @@ class Sistema(tk.Tk):
         # self.empresa_label.place(x=35, y=160)
 
         
+        
+
+
+        self.btn_cadastro_empresa = ttk.Button(self.sidebar, 
+            text='Tipo', command=lambda: self.mudar_tela(EditeTipo))
+        self.btn_cadastro_empresa.place(x=70, y=160)
+
+        self.btn_cadastro_empresa = ttk.Button(self.sidebar, 
+            text='Temperatura', command=lambda: self.mudar_tela(EditeTemperatura))
+        self.btn_cadastro_empresa.place(x=70, y=200)
+
         self.btn_cadastro_empresa = ttk.Button(self.sidebar, 
             text='Cadastro Empresa', command=lambda: self.mudar_tela(CadastroEmpresa))
-        self.btn_cadastro_empresa.place(x=70, y=160)
-
-
-        self.btn_cadastro_empresa = ttk.Button(self.sidebar, 
-            text='Edite Produto', command=lambda: self.mudar_tela(EditeProduto))
-        self.btn_cadastro_empresa.place(x=70, y=160)
+        self.btn_cadastro_empresa.place(x=70, y=240)
 
 
         # self.settings_text = ttk.Button(self.sidebar, text="Settings", 
@@ -177,14 +186,20 @@ class Sistema(tk.Tk):
 
         
         # Meus frames devem redenrizar aqui
-        self.bodyframe1 = tk.Frame(self, bg="#FFFFFF")
-        self.bodyframe1.place(x=328, y=25, width=1060, height=725)
+        # self.bodyframe1 = tk.Frame(self)
+        # self.bodyframe1.place(x=328, y=100, width=1060, height=725)
 
         # self.background_frame = tk.Frame(self, bg="#CCCCCC")
         # self.background_frame.place(x=328, y=110, width=1060, height=540)
 
-        self.central_frame = tk.Frame(self.bodyframe1)
-        self.central_frame.pack(expand=True, fill='both')
+        
+
+        
+        
+
+        self.central_frame = tk.Frame(self,bg="#ffffff")
+        self.central_frame.place(x=328, y=100, width=1060, height=725)
+        # self.central_frame.pack(expand=True, fill='both')
 
         
 
@@ -194,6 +209,8 @@ class Sistema(tk.Tk):
         self.frames[CadastroEmpresa] = CadastroEmpresa(self.central_frame)
         self.frames[CadastroProduto] = CadastroProduto(self.central_frame)
         self.frames[EditeProduto] = EditeProduto(self.central_frame)
+        self.frames[EditeTipo] = EditeTipo(self.central_frame)
+        self.frames[EditeTemperatura] = EditeTemperatura(self.central_frame)
         # self.frames[TelaSecundaria] = TelaSecundaria(self.central_frame)
 
         # Inicialize a tela inicial

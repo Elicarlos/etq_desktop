@@ -1,12 +1,12 @@
 import os
 import tkinter as tk
 from tkinter import ttk, messagebox
-from  . cadastro_produto import CadastroProduto
+from  . cadastro_temperatura import CadastroTemperatura
 from controllers import TkinterController
 
 
 
-class EditeProduto(tk.Frame):
+class EditeTemperatura(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
@@ -24,24 +24,20 @@ class EditeProduto(tk.Frame):
         btn_buscar_produto = ttk.Button(self, text="Buscar")
         btn_buscar_produto.place(x=430, y=130)
 
-        btn_adicionar_produto = ttk.Button(self, text="Adicionar Produto", command=self.adicionar_produtos)
+        btn_adicionar_produto = ttk.Button(self, text="+ Adicionar", command=self.adicionar_produtos)
         btn_adicionar_produto.place(x=530, y=130)
 
         if not hasattr(self, 'tree'):
-            self.tree = ttk.Treeview(self, columns=("Id","Corte", "Tipo", "Fibra", "Editar", "Excluir"), show="headings")
+            self.tree = ttk.Treeview(self, columns=("Id", "Temperatura","Editar", "Excluir"), show="headings")
             
             self.tree.heading("Id", text="Id", anchor=tk.W)
-            self.tree.heading("Corte", text="Corte")
-            self.tree.heading("Tipo", text="Tipo")
-            self.tree.heading("Fibra", text="Fibra")
+            self.tree.heading("Temperatura", text="Temperatura")        
             self.tree.heading("Editar", text="")
             self.tree.heading("Excluir", text="")
 
-            self.tree.column("Id", width=0, stretch=tk.NO)
-            self.tree.column("Corte", width=200)
-            self.tree.column("Tipo", width=100)
-            self.tree.column("Fibra", width=200)
-            self.tree.column("Editar", width=50)
+            self.tree.column("Id", width=0, stretch=tk.NO)            
+            self.tree.column("Temperatura", width=100)      
+            self.tree.column("Editar", width=50)  # Ajuste a largura conforme necessário
             self.tree.column("Excluir", width=50)
             self.tree.place(x=0, y=230)
 
@@ -52,19 +48,19 @@ class EditeProduto(tk.Frame):
         self.tree.bind('<ButtonRelease-1>', self.on_tree_click)
 
     def adicionar_dados(self):
-        dados = self.controller.obter_itens_nutricionais()
+        pass
+        dados = self.controller.obter_temperatura()
+        
  
         for item in self.tree.get_children():
             self.tree.delete(item)
 
         for dado in dados:
-            id = dado.get('id', '')
-            corte = dado.get('corte', '')
-            tipo = dado.get('tipo', '')
-            fibra_alimentar_100g = dado.get('fibra_alimentar_100g', '')
+            id = dado.get('id', '')            
+            temperatura = dado.get('temperatura', '')
 
             # Adicionar dados à Treeview, incluindo a coluna de ícones
-            item = self.tree.insert("", tk.END, values=(id, corte, tipo, fibra_alimentar_100g, "Editar", "Excluir"))
+            item = self.tree.insert("", tk.END, values=(id, temperatura, "Editar", "Excluir"))
             
             # Adicionar tags para os botões
             self.tree.tag_configure('editar', background='lightblue')
@@ -73,8 +69,9 @@ class EditeProduto(tk.Frame):
         item_id = self.tree.identify_row(event.y)
         col_id = self.tree.identify_column(event.x)
 
-        if item_id and col_id == '#5':  # Coluna "Ação"
-            acao = self.tree.item(item_id, 'values')[4] 
+        if item_id and col_id == '#3':  # Coluna "Ação"
+            acao = self.tree.item(item_id, 'values')[2] 
+            
 
             if acao == "Editar":
                 # Obtenha o ID da linha clicada
@@ -89,7 +86,7 @@ class EditeProduto(tk.Frame):
                 # print(produto_id)
 
                 # Recupere os dados do produto do banco de dados usando o ID
-                dados_do_banco = self.controller.obter_item_nutricional_por_id(produto_id)
+                dados_do_banco = self.controller.obter_temperatura_por_id(produto_id)
              
 
                 # Crie uma instância do CadastroProduto passando o Toplevel como mestre e os dados do produto
@@ -97,7 +94,7 @@ class EditeProduto(tk.Frame):
                 cadastro_produto_popup.title("Editar Produto")
 
                 # Chame o método para inicializar os campos com os dados do produto
-                cadastro_produto_frame = CadastroProduto(cadastro_produto_popup, dados_produto=dados_do_banco)
+                cadastro_produto_frame = CadastroTemperatura(cadastro_produto_popup, dados_produto=dados_do_banco)
                 cadastro_produto_frame.pack(expand=True, fill="both")
 
                 # ... (se necessário, adicione outras configurações específicas)
@@ -120,34 +117,34 @@ class EditeProduto(tk.Frame):
 
                 # Atualize os dados na Treeview após o fechamento do popup
                 self.adicionar_dados()
-
-        if item_id and col_id == '#6':  # Coluna "Ação"
-            acao = self.tree.item(item_id, 'values')[5] 
+        if item_id and col_id == '#4':  # Coluna "Ação"
+            acao = self.tree.item(item_id, 'values')[3] 
             if acao == 'Excluir':  # Coluna "Ação" (índice 3 considerando 0 como o primeiro índice)
                 acao = self.tree.item(item_id, 'values')[2]
-                self.excluir_produto()
+                self.excluir_temperatura()
+                
+               
 
-    def excluir_produto(self):
+    def excluir_temperatura(self):
         # Obtenha o item selecionado na Treeview
         selected_item = self.tree.selection()
 
         if not selected_item:
-            messagebox.showinfo("Aviso", "Selecione um tipo para excluir.")
+            messagebox.showinfo("Aviso", "Selecione um temperatura para excluir.")
             return
 
         # Pergunte ao usuário se ele realmente deseja excluir o tipo
-        confirmar = messagebox.askyesno("Confirmar Exclusão", "Tem certeza que deseja excluir este tipo?")
+        confirmar = messagebox.askyesno("Confirmar Exclusão", "Tem certeza que deseja excluir esta temperatura?")
 
         if confirmar:
             # Obtenha o ID do tipo selecionado
-            item_id = self.tree.item(selected_item, 'values')[0]
+            temperatura_id = self.tree.item(selected_item, 'values')[0]
 
             # Chame o método de exclusão no controlador
-            self.controller.excluir_item_nutricional(item_id)
+            self.controller.excluir_temperatura(temperatura_id)
 
             # Atualize os dados na Treeview após a exclusão
             self.adicionar_dados()
-
 
 
     def adicionar_produtos(self):
@@ -156,7 +153,7 @@ class EditeProduto(tk.Frame):
             cadastro_produto_popup.title("Cadastro de Produto")
 
             # Crie uma instância do CadastroProduto passando o Toplevel como mestre
-            cadastro_produto_frame = CadastroProduto(cadastro_produto_popup)
+            cadastro_produto_frame = CadastroTemperatura(cadastro_produto_popup)
             cadastro_produto_frame.pack(expand=True, fill="both")  # Adicione o frame à janela
 
             # ... (se necessário, adicione outras configurações específicas)

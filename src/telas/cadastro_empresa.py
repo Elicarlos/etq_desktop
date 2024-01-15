@@ -7,11 +7,12 @@ class CadastroEmpresa(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
+        self.config(background="#FFFFFF")
         self.criar_widgets()
 
     def criar_widgets(self):
         # Criação do formulário baseado na classe Empresa
-        empresa_info_frame = tk.LabelFrame(self, text='Cadastro de Empresa', padx=50, pady=50)
+        empresa_info_frame = tk.LabelFrame(self, text='Cadastro de Empresa', bg="#FFFFFF", padx=50, pady=50)
         empresa_info_frame.grid(row=0, column=0, padx=20, pady=5)
 
    
