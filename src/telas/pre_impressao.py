@@ -1,7 +1,11 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-from tkcalendar import DateEntry
+
+import ttkbootstrap as tb
+from ttkbootstrap.constants import *
+from ttkbootstrap import Style
+
 
 # from ttkbootstrap import Style
 from controllers import TkinterController
@@ -18,17 +22,17 @@ class PreImpressao(tk.Frame):
         
     def criar_widgets(self):
         temperatura = self.controller.obter_temperatura()
-        self.data_fabricacao_label = ttk.Label(self, text='Data Fabricação')
+        self.data_fabricacao_label = tb.Label(self, text='Data Fabricação')
         self.data_fabricacao_label.grid(row=0, column=0, padx=10, pady=5, sticky="ew")
 
-        self.data_fabricacao_entry = DateEntry(self,locale="pt_br", date_pattern='dd/MM/yyyy', width=12, background='darkblue', foreground='white', borderwidth=2)
+        self.data_fabricacao_entry = tb.DateEntry(self, bootstyle="primary")
         self.data_fabricacao_entry.grid(row=0, column=1, padx=10, pady=5, sticky="ew")
 
         # Rótulo e entrada para Validade
         self.validade_label = ttk.Label(self, text='Validade')
         self.validade_label.grid(row=1, column=0, padx=10, pady=5, sticky="ew")
 
-        self.data_validade_entry = DateEntry(self,locale="pt_br", date_pattern='dd/MM/yyyy', width=12, background='darkblue', foreground='white', borderwidth=2)
+        self.data_validade_entry = tb.DateEntry(self, bootstyle="primary")
         self.data_validade_entry.grid(row=1, column=1, padx=10, pady=5, sticky="ew")
 
         self.temperatura_label = ttk.Label(self, text='Temperatura')

@@ -1,5 +1,8 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
+import ttkbootstrap as bt
+from ttkbootstrap.constants import *
+from ttkbootstrap import Style
 # from ttkbootstrap import Style
 from controllers import TkinterController
 
@@ -12,46 +15,76 @@ class CadastroEmpresa(tk.Frame):
 
     def criar_widgets(self):
         # Criação do formulário baseado na classe Empresa
-        empresa_info_frame = tk.LabelFrame(self, text='Cadastro de Empresa', bg="#FFFFFF", padx=50, pady=50)
-        empresa_info_frame.grid(row=0, column=0, padx=20, pady=5)
 
+        self.empresa_label_title = bt.Label(self, text="Empresa",)
+        self.empresa_label_title.grid(row=0, sticky=tk.W, padx=20, pady=20)
+
+        separator = bt.Separator(self,bootstyle="secondary")
+        separator.grid(row=1, column=0, columnspan=2, sticky='ew')
+
+     
+        empresa_info_frame = tk.Frame(self, bg="#FFFFFF", padx=50, pady=20)
+        empresa_info_frame.grid(row=2, column=0, padx=100, pady=100)      
    
       
         # Labels
         cnpj_label = ttk.Label(empresa_info_frame, text='CNPJ', style="TLabel")
-        cnpj_label.grid(row=0, column=0, sticky=tk.E, pady=5)
+        cnpj_label.grid(row=0, column=0,sticky=tk.W, pady=5)
+
+        self.cnpj_entry = ttk.Entry(empresa_info_frame, width=50, style="TEntry")  
+        self.cnpj_entry.grid(row=1, column=0, pady=5)
+
+        ##########################################################
 
         razao_social_label = ttk.Label(empresa_info_frame, text='Razão Social', style="TLabel")
-        razao_social_label.grid(row=1, column=0, sticky=tk.E, pady=5)
-
-        fantasia_label = ttk.Label(empresa_info_frame, text='Nome Fantasia', style="TLabel")
-        fantasia_label.grid(row=2, column=0, sticky=tk.E, pady=5)
-
-        numero_sif_label = ttk.Label(empresa_info_frame, text='Número SIF', style="TLabel")
-        numero_sif_label.grid(row=3, column=0, sticky=tk.E, pady=5)
-
-        registro_adapi_label = ttk.Label(empresa_info_frame, text='Registro ADAPI', style="TLabel")
-        registro_adapi_label.grid(row=4, column=0, sticky=tk.E, pady=5)
-
-        # Entry widgets
-        self.cnpj_entry = ttk.Entry(empresa_info_frame, width=50, style="TEntry")  
-        self.cnpj_entry.grid(row=0, column=1, pady=5)
+        razao_social_label.grid(row=0, column=1, sticky=tk.W, pady=5)
 
         self.razao_social_entry = ttk.Entry(empresa_info_frame, width=50, style="TEntry")
         self.razao_social_entry.grid(row=1, column=1, pady=5)
 
+        ##########################################################
+
+        fantasia_label = ttk.Label(empresa_info_frame, text='Nome Fantasia', style="TLabel")
+        fantasia_label.grid(row=0, column=2, sticky=tk.W, pady=5)
+
         self.fantasia_entry = ttk.Entry(empresa_info_frame, width=50, style="TEntry")
-        self.fantasia_entry.grid(row=2, column=1, pady=5)
+        self.fantasia_entry.grid(row=1, column=2, pady=5)
+
+        ##########################################################
+
+        numero_sif_label = ttk.Label(empresa_info_frame, text='Número SIF', style="TLabel")
+        numero_sif_label.grid(row=2, column=0, sticky=tk.W, pady=5)
 
         self.numero_sif_entry = ttk.Entry(empresa_info_frame, width=50, style="TEntry")
-        self.numero_sif_entry.grid(row=3, column=1, pady=5)
+        self.numero_sif_entry.grid(row=3, column=0, pady=5)
+
+        ##########################################################
+
+        registro_adapi_label = ttk.Label(empresa_info_frame, text='Registro ADAPI', style="TLabel")
+        registro_adapi_label.grid(row=2, column=1, sticky=tk.W, pady=5)
 
         self.registro_adapi_entry = ttk.Entry(empresa_info_frame, width=50, style="TEntry")
-        self.registro_adapi_entry.grid(row=4, column=1, pady=5)
+        self.registro_adapi_entry.grid(row=3, column=1, pady=5)
+
+        # Entry widgets        
 
         # Botão
         btn_salvar = ttk.Button(empresa_info_frame, text='Salvar', style="TButton", command=self.salvar_empresa)
-        btn_salvar.grid(row=5, column=1, pady=10)
+        btn_salvar.grid(row=3, column=1, pady=100)
+
+        separator = bt.Separator(self,bootstyle="secondary")
+        separator.grid(row=4, column=0, columnspan=2, sticky='ew')
+
+
+        # largura_tela = self.master.winfo_screenwidth()
+        # altura_tela = self.master.winfo_screenheight()
+        # largura_frame = empresa_info_frame.winfo_reqwidth()
+        # altura_frame = empresa_info_frame.winfo_reqheight()
+
+        # posicao_x = (largura_tela - largura_frame) // 2
+        # posicao_y = (altura_tela - altura_frame) // 2
+
+        
 
         # Configurar o formulário com os dados da empresa existente, se houver
         self.configurar_com_dados_empresa()

@@ -3,6 +3,10 @@ import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
 
+import ttkbootstrap as bt
+from ttkbootstrap.constants import *
+from ttkbootstrap import Style
+
 from controllers import TkinterController
 from telas.cadastro_tipo import CadastroTipo
 from telas.pre_impressao import PreImpressao
@@ -18,7 +22,11 @@ class Home(tk.Frame):
 
     def criar_widgets(self):
         # Campo de pesquisa
-        self.campo_pesquisa = ttk.Entry(self, width=80)
+
+        self.label_resultado = bt.Label(self, text="")
+        self.label_resultado.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
+        
+        self.campo_pesquisa = bt.Entry(self, width=120)
         self.campo_pesquisa.grid(row=0, column=0, padx=10, pady=10)
 
         # Botão de pesquisa
@@ -30,7 +38,8 @@ class Home(tk.Frame):
         self.label_resultado.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
 
         self.colunas = ("Corte", "Tipo", "Sexo","Imprimir")
-        self.tree_resultados = ttk.Treeview(self, columns=self.colunas, show="headings", selectmode="browse")
+        self.tree_resultados = bt.Treeview(self, columns=self.colunas, show="headings", selectmode="browse", style='light.Treeview')
+        
         for coluna in self.colunas:
             self.tree_resultados.heading(coluna, text=coluna)
 
@@ -121,7 +130,8 @@ class Home(tk.Frame):
          
 
             # Exibir Treeview apenas se houver resultados
-            self.tree_resultados.grid(row=2, column=0, columnspan=2, padx=10, pady=10)
+            # self.tree_resultados.grid(row=2, column=0, columnspan=2, padx=10, pady=10)
+            self.tree_resultados.grid(row=2, column=0,  padx=10, pady=10, sticky="nsew")
             self.label_resultado.config(text="")
         else:
             # Ocultar Treeview se não houver resultados

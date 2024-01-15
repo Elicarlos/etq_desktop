@@ -2,9 +2,9 @@ from PIL import Image, ImageTk
 import tkinter as tk
 from tkinter import ttk
 from telas.edite_temperatura import EditeTemperatura 
-# from ttkbootstrap import ttk as ttkbs
-# from ttkbootstrap.constants import *
-# from ttkbootstrap import Style
+from ttkbootstrap import ttk as bt
+from ttkbootstrap.constants import *
+from ttkbootstrap import Style
 
 
 from telas.home import Home
@@ -29,10 +29,13 @@ class Sistema(tk.Tk):
         self.title('Etiquetário')
         self.geometry('1366x768')
         self.state('zoomed')
-        self.config(background="#F0F1F6")
-
-        # style = Style(theme="darkly")       
         
+        
+      
+
+        style = Style(theme="litera")
+        self.config(background="#F0F1F6")
+    
         largura_tela = self.winfo_screenwidth()
         altura_tela = self.winfo_screenheight()
         largura_janela = 1366  # Substitua pelo valor desejado
@@ -51,16 +54,19 @@ class Sistema(tk.Tk):
         icon = ImageTk.PhotoImage(self.home_image)
         self.iconphoto(True, icon)
 
-        self.header = tk.Frame(self, bg='#FFFFFF')
-        self.header.place(x=300, y=0, width=1070, height=70)
+        self.header = bt.Frame(self)
+        self.header.place(x=250, y=0,  width=self.winfo_screenwidth(), height=70)
+
+        # self.footer = tk.Frame(self, bg="#ffffff")
+        # self.footer.pack(side="bottom", fill="x")
         # self.logout_text = ttk.Button(self.header, text='Sair', style='TButton', 
         #     font=('', 13, 'bold'), bd=0, fg='white',
         #     cursor='hand2', activebackground="#32cf8e" )
         
         # self.logout_text.place(x=950, y=15)
 
-        self.sidebar = tk.Frame(self, bg='#2C2E3E')
-        self.sidebar.place(x=0, y=0, width=300, height=750)
+        self.sidebar = bt.Frame(self, bootstyle="dark")
+        self.sidebar.place(x=0, y=0, width=300, height=self.winfo_screenwidth())
 
            
 
@@ -112,7 +118,7 @@ class Sistema(tk.Tk):
         self.home_label.image = photo
         self.home_label.place(x=35, y=80)
 
-        self.btn_home = ttk.Button(self.sidebar, text='Home', command=lambda: self.mudar_tela(Home))
+        self.btn_home = bt.Button(self.sidebar, text='Home', bootstyle="darky" , command=lambda: self.mudar_tela(Home))
         self.btn_home.place(x=70, y=80)    
         
 
@@ -125,7 +131,8 @@ class Sistema(tk.Tk):
         # self.cadastro_label.image = photo
         # self.cadastro_label.place(x=35, y=120)
         
-        self.btn_cadastro_produto = ttk.Button(self.sidebar, 
+        self.btn_cadastro_produto = bt.Button(self.sidebar,
+            bootstyle="darky",
             text='Produtos', command=lambda: self.mudar_tela(EditeProduto))
         self.btn_cadastro_produto.place(x=70, y=120)
 
@@ -143,15 +150,18 @@ class Sistema(tk.Tk):
         
 
 
-        self.btn_cadastro_empresa = ttk.Button(self.sidebar, 
+        self.btn_cadastro_empresa = bt.Button(self.sidebar,
+            bootstyle="darky", 
             text='Tipo', command=lambda: self.mudar_tela(EditeTipo))
         self.btn_cadastro_empresa.place(x=70, y=160)
 
-        self.btn_cadastro_empresa = ttk.Button(self.sidebar, 
+        self.btn_cadastro_empresa = bt.Button(self.sidebar,
+            bootstyle="darky", 
             text='Temperatura', command=lambda: self.mudar_tela(EditeTemperatura))
         self.btn_cadastro_empresa.place(x=70, y=200)
 
-        self.btn_cadastro_empresa = ttk.Button(self.sidebar, 
+        self.btn_cadastro_empresa = bt.Button(self.sidebar,
+            bootstyle="darky", 
             text='Cadastro Empresa', command=lambda: self.mudar_tela(CadastroEmpresa))
         self.btn_cadastro_empresa.place(x=70, y=240)
 
@@ -196,9 +206,10 @@ class Sistema(tk.Tk):
 
         
         
-
-        self.central_frame = tk.Frame(self,bg="#ffffff")
-        self.central_frame.place(x=328, y=100, width=1060, height=725)
+        margem_x = 10  # Margem horizontal
+        margem_y = 10
+        self.central_frame = bt.Frame(self,bootstyle="dark")
+        self.central_frame.place(x=328 + margem_x, y=100 + margem_y, width=self.winfo_screenwidth() - 2*margem_x, height=725 - 2*margem_y)
         # self.central_frame.pack(expand=True, fill='both')
 
         
