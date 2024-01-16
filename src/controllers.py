@@ -65,6 +65,7 @@ class TkinterController:
 
     @staticmethod
     def obter_empresas():
+        
         return Empresa.select()
 
     @staticmethod
