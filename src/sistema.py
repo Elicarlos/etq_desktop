@@ -206,12 +206,13 @@ class Sistema(tk.Tk):
 
         
         
-        margem_x = 10  # Margem horizontal
-        margem_y = 10
-        self.central_frame = bt.Frame(self,bootstyle="dark")
-        self.central_frame.place(x=328 + margem_x, y=100 + margem_y, width=self.winfo_screenwidth() - 2*margem_x, height=725 - 2*margem_y)
-        # self.central_frame.pack(expand=True, fill='both')
+        
 
+        self.central_frame = bt.Frame(self,bootstyle="dark")
+        self.central_frame.place(x=328, y=110, width=1010, height=540)
+
+        # self.central_frame.pack(expand=True, fill='both')
+    
         
 
         self.frames = {}

@@ -17,51 +17,51 @@ class CadastroEmpresa(tk.Frame):
         # Criação do formulário baseado na classe Empresa
 
         self.empresa_label_title = bt.Label(self, text="Empresa",)
-        self.empresa_label_title.grid(row=0, sticky=tk.W, padx=20, pady=20)
+        self.empresa_label_title.grid(row=0, sticky=tk.W, padx=(20, 5),pady=(20, 20))
 
         separator = bt.Separator(self,bootstyle="secondary")
-        separator.grid(row=1, column=0, columnspan=2, sticky='ew')
+        separator.grid(row=1, column=0, columnspan=2,  sticky='ew')
 
      
-        empresa_info_frame = tk.Frame(self, bg="#FFFFFF", padx=50, pady=20)
-        empresa_info_frame.grid(row=2, column=0, padx=100, pady=100)      
+        empresa_info_frame = tk.Frame(self, bg="#FFFFFF")
+        empresa_info_frame.grid(row=2, column=0, padx=(20, 5),pady=(20, 20))      
    
       
         # Labels
         cnpj_label = ttk.Label(empresa_info_frame, text='CNPJ', style="TLabel")
-        cnpj_label.grid(row=0, column=0,sticky=tk.W, pady=5)
+        cnpj_label.grid(row=0, column=0,sticky=tk.W, pady=(30,0))
 
         self.cnpj_entry = ttk.Entry(empresa_info_frame, width=50, style="TEntry")  
-        self.cnpj_entry.grid(row=1, column=0, pady=5)
+        self.cnpj_entry.grid(row=1, column=0, padx=(0,10),  pady=5)
 
         ##########################################################
 
         razao_social_label = ttk.Label(empresa_info_frame, text='Razão Social', style="TLabel")
-        razao_social_label.grid(row=0, column=1, sticky=tk.W, pady=5)
+        razao_social_label.grid(row=0, column=1, sticky=tk.W, pady=(30,0))
 
         self.razao_social_entry = ttk.Entry(empresa_info_frame, width=50, style="TEntry")
-        self.razao_social_entry.grid(row=1, column=1, pady=5)
+        self.razao_social_entry.grid(row=1, column=1,  padx=(0,10),  pady=5)
 
         ##########################################################
 
         fantasia_label = ttk.Label(empresa_info_frame, text='Nome Fantasia', style="TLabel")
-        fantasia_label.grid(row=0, column=2, sticky=tk.W, pady=5)
+        fantasia_label.grid(row=0, column=2, sticky=tk.W, pady=(30,0))
 
         self.fantasia_entry = ttk.Entry(empresa_info_frame, width=50, style="TEntry")
-        self.fantasia_entry.grid(row=1, column=2, pady=5)
+        self.fantasia_entry.grid(row=1, column=2,  padx=(0,10),  pady=5)
 
         ##########################################################
 
         numero_sif_label = ttk.Label(empresa_info_frame, text='Número SIF', style="TLabel")
-        numero_sif_label.grid(row=2, column=0, sticky=tk.W, pady=5)
+        numero_sif_label.grid(row=2, column=0, sticky=tk.W, pady=(40,0))
 
         self.numero_sif_entry = ttk.Entry(empresa_info_frame, width=50, style="TEntry")
-        self.numero_sif_entry.grid(row=3, column=0, pady=5)
+        self.numero_sif_entry.grid(row=3, column=0, padx=(0,10),  pady=(0,0))
 
         ##########################################################
 
         registro_adapi_label = ttk.Label(empresa_info_frame, text='Registro ADAPI', style="TLabel")
-        registro_adapi_label.grid(row=2, column=1, sticky=tk.W, pady=5)
+        registro_adapi_label.grid(row=2, column=1, sticky=tk.W, pady=(5,0))
 
         self.registro_adapi_entry = ttk.Entry(empresa_info_frame, width=50, style="TEntry")
         self.registro_adapi_entry.grid(row=3, column=1, pady=5)
