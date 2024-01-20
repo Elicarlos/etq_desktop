@@ -67,6 +67,11 @@ class TkinterController:
     def obter_empresas():
         
         return Empresa.select()
+    
+    @staticmethod
+    def empresas():
+        empresa = Empresa.select().dicts()       
+        return empresa
 
     @staticmethod
     def obter_tipos():

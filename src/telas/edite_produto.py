@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from  . cadastro_produto import CadastroProduto
 from controllers import TkinterController
+from ttkbootstrap import ttk as bt
 
 
 
@@ -28,7 +29,7 @@ class EditeProduto(tk.Frame):
         btn_adicionar_produto.place(x=530, y=130)
 
         if not hasattr(self, 'tree'):
-            self.tree = ttk.Treeview(self, columns=("Id","Corte", "Tipo", "Fibra", "Editar", "Excluir"), show="headings")
+            self.tree = bt.Treeview(self, columns=("Id","Corte", "Tipo", "Fibra", "Editar", "Excluir"),style='info.Treeview', show="headings")
             
             self.tree.heading("Id", text="Id", anchor=tk.W)
             self.tree.heading("Corte", text="Corte")
@@ -45,6 +46,12 @@ class EditeProduto(tk.Frame):
             self.tree.column("Excluir", width=50)
             self.tree.place(x=0, y=230)
 
+            style = ttk.Style()
+            style.configure('Treeview', borderwidth=0)
+
+            
+            # style.configure('Treeview.Heading', borderwidth=0)
+
         # Adicionando atributos para armazenar referências às imagens
         self.editar_icon = None
 
@@ -53,6 +60,8 @@ class EditeProduto(tk.Frame):
 
     def adicionar_dados(self):
         dados = self.controller.obter_itens_nutricionais()
+
+        
  
         for item in self.tree.get_children():
             self.tree.delete(item)
