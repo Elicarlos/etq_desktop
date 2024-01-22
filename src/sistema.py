@@ -35,7 +35,7 @@ class Sistema(tk.Tk):
         image_path = os.path.join(script_dir, '..', 'images', 'profile.png')
         self.setup_icon(image_path)
 
-        print(p)
+        # print(p)
         # self.logo_img = tk.PhotoImage(name='logo', file=p/'assets/icons8_broom_64px_1.png')
         self.user_icon = tk.PhotoImage(name='user_icon', file=p/'assets/user-30.png')
         # self.registry_img = tk.PhotoImage(name='registry', file=p/'assets/icons8_registry_editor_64px.png')
