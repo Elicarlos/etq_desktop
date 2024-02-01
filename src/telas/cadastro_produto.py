@@ -20,9 +20,12 @@ class CadastroProduto(tk.Frame):
         # style = Style(theme="lumen")  # Escolha o tema desejado
 
         notebook = ttk.Notebook(self)
-        notebook.grid(row=0, column=0, pady=10, padx=10, sticky="nsew")
+
+        notebook.pack(side='left', expand=True, fill='both', padx=20, pady=30) 
+        # notebook.grid(row=0, column=0, pady=10, padx=10, sticky="nsew")
 
         produto_info_frame = tk.Frame(notebook, bg="#ffffff")
+        produto_info_frame.pack(side='left', expand=True, fill='both', padx=20, pady=30) 
         notebook.add(produto_info_frame, text='Produto')
 
         # Labels e Combobox/Entries
@@ -32,26 +35,51 @@ class CadastroProduto(tk.Frame):
             label.grid(row=i, column=0, padx=10, pady=5, sticky="w")
         
         tipos_corte = self.controller.obter_tipos()
-
-        # Sempre cria o Combobox, mesmo que vazio
-        self.tipo_combobox = ttk.Combobox(produto_info_frame, values=tipos_corte, state='readonly')
-        self.tipo_combobox.grid(row=0, column=1, padx=10, pady=5, sticky="ew")
-
-        adicona_tipo = ttk.Button(produto_info_frame, text="+ Adicionar", command=self.abrir_popup)
-        adicona_tipo.grid(row=0, column=2, padx=10, pady=5, sticky="ew")
-
-        # Adiciona o evento para lidar com a seleção no Combobox
-        self.tipo_combobox.bind("<<ComboboxSelected>>", self.selecionar_tipo)
-
-
+        
+        # PRIMEIRA LINHA
+        self.codigo_label = ttk.Label(produto_info_frame, text='Código')
+        self.codigo_label.grid(row=0, column=0, padx=10, pady=5)
+        self.codigo_entry = ttk.Entry(produto_info_frame)        
+        self.codigo_entry.grid(row=1, column=0, padx=10, pady=10, sticky="ew")
+        
+        self.corte_label = ttk.Label(produto_info_frame, text='Corte')
+        self.corte_label.grid(row=0, column=1, padx=10, pady=5)
         self.corte_entry = ttk.Entry(produto_info_frame)
         self.corte_entry.grid(row=1, column=1, padx=10, pady=5, sticky="ew")
+
+        self.sexo_combobox_label = ttk.Label(produto_info_frame, text='sexo')
+        self.sexo_combobox_label.grid(row=0, column=2, padx=10, pady=5)
         self.sexo_combobox = ttk.Combobox(produto_info_frame, values=["F", "M"], state='readonly' )
-        self.sexo_combobox.grid(row=2, column=1, padx=10, pady=5, sticky="ew")
+        self.sexo_combobox.grid(row=1, column=2, padx=10, pady=5, sticky="ew")
+
+
+        #### SEGUNDA LINHA
+        self.codigo_barras_label = ttk.Label(produto_info_frame, text='Codigo de Barras')
+        self.codigo_barras_label.grid(row=2, column=0, padx=10, pady=5)
         self.codigo_barras_entry = ttk.Entry(produto_info_frame)
-        self.codigo_barras_entry.grid(row=3, column=1, padx=10, pady=5, sticky="ew")
+        self.codigo_barras_entry.grid(row=3, column=0, padx=10, pady=5, sticky="ew")
+        
+
+        # Sempre cria o Combobox, mesmo que vazio
+        self.tipo_combobox_label = ttk.Label(produto_info_frame, text='Tipo de Corte')
+        self.tipo_combobox_label.grid(row=2, column=1, padx=10, pady=5)
+        self.tipo_combobox = ttk.Combobox(produto_info_frame, values=tipos_corte, state='readonly')
+        self.tipo_combobox.grid(row=3, column=1, padx=10, pady=5, sticky="ew")
+
+        adicona_tipo = ttk.Button(produto_info_frame, text="+ Adicionar", command=self.abrir_popup)
+        adicona_tipo.grid(row=3, column=2, padx=10, pady=5, sticky="ew")
+
+        # Adiciona o evento para lidar com a seleção no Combobox
+        self.tipo_combobox.bind("<<ComboboxSelected>>", self.selecionar_tipo)  
+        
+        
+        self.porcao_embalagem_label = ttk.Label(produto_info_frame, text='Porcão por Embalagem')
+        self.porcao_embalagem_label.grid(row=4, column=0, padx=10, pady=5)
         self.porcao_embalagem_entry = ttk.Entry(produto_info_frame)
-        self.porcao_embalagem_entry.grid(row=4, column=1, padx=10, pady=5, sticky="ew")
+        self.porcao_embalagem_entry.grid(row=5, column=0, padx=10, pady=5, sticky="ew")
+
+        self.porcao = ttk.Label(produto_info_frame, text='Porcão')
+        self.porcao.grid(row=4, column=1, padx=10, pady=5)
         self.porcao_entry = ttk.Entry(produto_info_frame)
         self.porcao_entry.grid(row=5, column=1, padx=10, pady=5, sticky="ew")
 
@@ -59,6 +87,9 @@ class CadastroProduto(tk.Frame):
         self.campo_adicional_label.grid(row=6, column=0, padx=10, pady=5, sticky="w")
         self.campo_adicional_entry = tk.Text(produto_info_frame, height=4, width=40)
         self.campo_adicional_entry.grid(row=7, column=0, columnspan=2, padx=10, pady=5, sticky="ew")
+
+        salvar_produto = ttk.Button(produto_info_frame, text="Salvar", command=self.salvar_produto)
+        salvar_produto.grid(row=11, column=5, padx=10, pady=5, sticky="ew")
 
 
         # Adicionando a frame "Informação Nutricional"
